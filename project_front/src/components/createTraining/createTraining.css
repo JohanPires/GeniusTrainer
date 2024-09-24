@@ -1,0 +1,40 @@
+/* .createTraining {
+  width: 90%;
+  margin: 20px auto;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.05), -4px 4px 8px rgba(0, 0, 0, 0.05),
+    4px -4px 8px rgba(0, 0, 0, 0.05), -4px -4px 8px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.createTraining input {
+  border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+.createTraining .exercices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.createTraining .exercices div {
+  display: flex;
+  gap: 20px;
+}
+
+.createTraining button {
+  width: 200px;
+  border: solid 2px rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+  padding: 10px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+.button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+} */

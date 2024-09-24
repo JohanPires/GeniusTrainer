@@ -1,0 +1,47 @@
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #373737;
+  height: 100vh;
+  width: 400px;
+  color: white;
+}
+
+.up {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.sideBar h1 {
+  font-size: 1.8rem;
+}
+
+.sideBar .nav-container {
+  margin-left: 10%;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.sideBar ul {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.sideBar i {
+  color: #1e1e1e;
+  margin-right: 10px;
+}
+
+.logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.active {
+  color: #1e1e1e;
+}

@@ -1,0 +1,7 @@
+.profilPage {
+  display: flex;
+}
+
+.profilPage-right {
+  width: 100%;
+}

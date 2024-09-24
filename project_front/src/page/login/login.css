@@ -1,0 +1,68 @@
+.login {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.login .right {
+  background: url("/public/img/homme-dips.jpg") center/cover;
+}
+
+.login .left {
+  background: #373737;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background: white;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 4px 4px 5px 5px #00000025;
+}
+
+.login input {
+  background: none;
+  border: solid 1px #00000020;
+  border-radius: 30px;
+  padding: 10px;
+  width: 100%;
+}
+
+.login legend {
+  font-size: 2.5rem;
+}
+
+.login button {
+  background: #373737;
+  border: solid 1px #00000020;
+  border-radius: 30px;
+  padding: 10px;
+  width: 100%;
+  color: white;
+  transition: 0.3s;
+}
+
+.login button:hover {
+  border: solid 1px #373737;
+  color: #373737;
+  background: white;
+}
+
+.login a {
+  transition: 0.2s;
+}
+
+.login a:hover {
+  color: #00000070;
+}
+
+.login #error {
+  color: red;
+}

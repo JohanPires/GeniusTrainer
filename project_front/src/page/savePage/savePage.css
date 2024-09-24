@@ -1,0 +1,11 @@
+.savePage {
+  display: flex;
+  height: 100vh;
+}
+
+.savePage-right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

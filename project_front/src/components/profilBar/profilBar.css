@@ -1,0 +1,31 @@
+.profilBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.profilBar .left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.profilBar img {
+  border-radius: 50px;
+}
+
+.profilBar h3 {
+  font-weight: bold;
+}
+
+.profilBar p {
+  font-style: italic;
+}
+
+@media screen and (max-width: 1000px) {
+  .profilBar {
+    justify-content: space-around;
+  }
+}

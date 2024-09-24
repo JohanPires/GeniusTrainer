@@ -1,0 +1,29 @@
+.allTraining span {
+  margin: 20px;
+  transform: translateY(20px);
+}
+
+.allTraining {
+  overflow-y: auto;
+}
+
+/* .searchBar {
+  width: 40%;
+  margin: 20px auto;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.05), -4px 4px 8px rgba(0, 0, 0, 0.05),
+    4px -4px 8px rgba(0, 0, 0, 0.05), -4px -4px 8px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  border-radius: 50px;
+  display: flex;
+  gap: 5px;
+}
+
+.searchBar input {
+  width: 80%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+  color: rgba(0, 0, 0, 0.5);
+}
+.searchBar i {
+  color: rgba(0, 0, 0, 0.2);
+} */

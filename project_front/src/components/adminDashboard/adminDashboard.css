@@ -1,0 +1,27 @@
+/* .adminDashboard {
+  overflow-y: auto;
+}
+
+.admin-nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+.admin-nav button {
+  width: 30%;
+  margin: 20px auto;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.05), -4px 4px 8px rgba(0, 0, 0, 0.05),
+    4px -4px 8px rgba(0, 0, 0, 0.05), -4px -4px 8px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+} */
+
+.adminDashboard {
+  max-height: 85%;
+
+  flex: 1;
+  overflow-y: auto;
+}
+.adminDashboard .content {
+  overflow: hidden;
+  overflow-y: auto;
+}

@@ -1,0 +1,7 @@
+.adminPage {
+  display: flex;
+}
+
+.adminPage-right {
+  width: 100%;
+}

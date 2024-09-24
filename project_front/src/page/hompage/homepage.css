@@ -1,0 +1,90 @@
+/* .homepage {
+  height: 100vh;
+}
+
+.homepage a {
+  background: #373737;
+  color: white;
+  border: solid 2px #373737;
+  transition: 0.2s;
+}
+
+.homepage a:hover {
+  background: white;
+  color: #373737;
+  border: solid 2px #373737;
+}
+
+.header {
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header a {
+  padding: 10px 20px;
+  margin-right: 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 80px;
+  width: 80px;
+}
+
+.logo h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.main {
+  position: relative;
+  height: 70vh;
+  padding-top: 50px;
+  margin-left: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.main h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  width: 50%;
+  line-height: 120%;
+}
+
+.main a {
+  width: 10%;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+*/
+.main img {
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+}
+
+.main {
+  position: relative;
+  /* height: 70vh;
+  padding-top: 50px;
+  margin-left: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; */
+}
+
+/* .footer {
+  background: #373737;
+  height: 20vh;
+}  */

@@ -1,0 +1,82 @@
+/* .register {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.register .left {
+  background: url("/public/img/homme-qui-court.jpg") center/cover;
+}
+
+.register .right {
+  background: #373737;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background: white;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 4px 4px 5px 5px #00000025;
+}
+
+.register input {
+  background: none;
+  border: solid 1px #00000020;
+  border-radius: 30px;
+  padding: 10px;
+  width: 100%;
+}
+
+.register legend {
+  font-size: 2.5rem;
+}
+
+.register button {
+  background: #373737;
+  border: solid 1px #00000020;
+  border-radius: 30px;
+  padding: 10px;
+  width: 100%;
+  color: white;
+  transition: 0.3s;
+}
+
+.register button:hover {
+  border: solid 1px #373737;
+  color: #373737;
+  background: white;
+}
+
+.register select {
+  background: none;
+  border: solid 1px #00000020;
+  color: #000000af;
+  border-radius: 30px;
+  padding: 10px;
+  width: 100%;
+}
+
+.register a {
+  transition: 0.2s;
+}
+
+.register a:hover {
+  color: #00000070;
+}
+
+@media screen and (max-width: 1000px) {
+  .register {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50% 50%;
+  }
+} */
