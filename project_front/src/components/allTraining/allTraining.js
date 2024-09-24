@@ -45,7 +45,7 @@ function AllTraining() {
 
   return (
     <div className="allTraining">
-      <div class="searchBar w-2/5 mx-auto my-5 shadow-md p-5 rounded-full flex gap-2">
+      <div class="searchBar w-4/5 sm:w-2/5 mx-auto my-5 shadow-md p-5 rounded-full flex gap-2">
         <label htmlFor="search">
           <i class="fa-solid fa-magnifying-glass text-gray-300"></i>
         </label>

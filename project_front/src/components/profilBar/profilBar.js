@@ -28,8 +28,27 @@ function ProfilBar() {
   }, []);
 
   return (
-    <div className="profilBar">
-      <div className="left">
+    // <div className="profilBar">
+    //   <div className="left">
+    //     <img
+    //       src={
+    //         userData.profile_photo_path
+    //           ? `http://localhost:8000/storage/${userData.profile_photo_path}`
+    //           : "/img/test.png"
+    //       }
+    //       alt=""
+    //       height="40px"
+    //       width="40px"
+    //     />
+    //     <h3>{userData.name}</h3>
+    //     <p>{userData.role}</p>
+    //   </div>
+    //   <div className="right">
+    //     <span>{currentDate}</span>
+    //   </div>
+    // </div>
+    <div className="flex justify-end lg:justify-between items-center p-5 shadow-md">
+      <div className="flex items-center gap-10">
         <img
           src={
             userData.profile_photo_path
@@ -37,13 +56,14 @@ function ProfilBar() {
               : "/img/test.png"
           }
           alt=""
-          height="40px"
-          width="40px"
+          className="rounded-full"
+          width="40"
+          height="40"
         />
-        <h3>{userData.name}</h3>
-        <p>{userData.role}</p>
+        <h3 className="font-bold">{userData.name}</h3>
+        <p className="italic">{userData.role}</p>
       </div>
-      <div className="right">
+      <div className="hidden lg:block">
         <span>{currentDate}</span>
       </div>
     </div>

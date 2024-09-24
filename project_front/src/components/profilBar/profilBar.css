@@ -24,8 +24,8 @@
   font-style: italic;
 }
 
-@media screen and (max-width: 1000px) {
+/* @media screen and (max-width: 1000px) {
   .profilBar {
     justify-content: space-around;
   }
-}
+} */

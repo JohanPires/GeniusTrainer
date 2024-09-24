@@ -213,7 +213,7 @@ function CreateTraining() {
                 />
 
                 <input
-                  class="border-b border-gray-300 focus:outline-none w-12 sm:w-24 sm:text-lg text-xs"
+                  class="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
                   type="number"
                   min="0"
                   placeholder="Répétitions"
@@ -223,7 +223,7 @@ function CreateTraining() {
                   }
                 />
                 <input
-                  class="border-b border-gray-300 focus:outline-none w-12 sm:w-24 sm:text-lg text-xs"
+                  class="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
                   type="number"
                   min="0"
                   placeholder="Séries"

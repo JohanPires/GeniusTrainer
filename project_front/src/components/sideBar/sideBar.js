@@ -51,10 +51,10 @@ function SideBar() {
   return (
     <div>
       {/* Bouton menu burger visible au-dessus de 1500px */}
-      <div className="lg:hidden p-5 absolute translate-y-2">
+      <div className="lg:hidden p-5 absolute translate-y-2 -translate-x-5 sm:translate-x-0">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="text-gray p-2 rounded-lg focus:outline-none"
+          className="text-gray p-2 rounded-md focus:outline-none"
         >
           <i className="fa-solid fa-bars"></i>
         </button>
@@ -64,7 +64,7 @@ function SideBar() {
       <div
         className={`${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } fixed lg:static top-0 left-0 w-72 bg-gray-800 text-white h-screen transition-transform transform lg:translate-x-0 lg:block lg:w-64 lg:bg-gray-800`}
+        } fixed lg:static top-0 left-0 w-56 bg-gray-800 text-white h-screen transition-transform transform lg:translate-x-0 lg:block lg:w-64 lg:bg-gray-800`}
       >
         <div className="flex flex-col justify-between h-full">
           <div className="up">
@@ -156,7 +156,7 @@ function SideBar() {
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          className="fixed top-0 left-64 right-0 bottom-0  lg:hidden"
+          className="fixed top-0 left-56 sm:left-64 right-0 bottom-0  lg:hidden"
         ></div>
       )}
     </div>
