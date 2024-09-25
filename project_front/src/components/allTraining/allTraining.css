@@ -7,6 +7,10 @@
   overflow-y: auto;
 }
 
+.allTraining::-webkit-scrollbar {
+  display: none;
+}
+
 /* .searchBar {
   width: 40%;
   margin: 20px auto;

@@ -25,3 +25,7 @@
   overflow: hidden;
   overflow-y: auto;
 }
+
+.adminDashboard::-webkit-scrollbar {
+  display: none;
+}

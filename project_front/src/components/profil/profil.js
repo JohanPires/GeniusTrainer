@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import "./profil.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Modal from "../modal/modalDelete";
 
 function Profil() {
   const [userData, setUserData] = useState([]);
   const formRef = useRef(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const token = localStorage.getItem("authToken");
   const user_id = localStorage.getItem("user_id");
@@ -62,58 +64,29 @@ function Profil() {
       });
   };
 
+  const openModel = () => {
+    setIsModalVisible("true");
+  };
+
   const deleteAcount = () => {
-    const userConfirmation = window.confirm(
-      "Êtes-vous sûr de vouloir supprimer votre compte ?"
-    );
-    if (userConfirmation) {
-      axios
-        .delete(`http://127.0.0.1:8000/api/user/${user_id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then(() => navigate("/"));
-    }
+    axios
+      .delete(`http://127.0.0.1:8000/api/user/${user_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        navigate("/");
+      });
   };
 
   return (
-    // <div className="profil">
-    //   <form action="" ref={formRef} onSubmit={(e) => handleSubmit(e)}>
-    //     <div className="">
-    //       <label htmlFor="name">Nom d'utilisateur :</label>
-    //       <input
-    //         type="text"
-    //         name="name"
-    //         required
-    //         defaultValue={userData.name}
-    //       />
-    //     </div>
-    //     <div className="">
-    //       <label htmlFor="">Email :</label>
-    //       <input
-    //         type="email"
-    //         name="email"
-    //         required
-    //         defaultValue={userData.email}
-    //       />
-    //     </div>
-    //     <div className="">
-    //       <label htmlFor="">Mot de passe :</label>
-    //       <input type="password" name="password" placeholder="********" />
-    //     </div>
-    //     <div className="">
-    //       <label htmlFor="">Photo de Profil :</label>
-    //       <input type="file" name="picture" />
-    //     </div>
-    //     <p id="error">{error}</p>
-    //     <input type="submit" value="Sauvegarder" />
-    //   </form>
-
-    //   <button onClick={deleteAcount}> Supprimer mon compte</button>
-    // </div>
-
     <div class="showUser w-11/12 mx-auto my-5 shadow-md p-8">
+      <Modal
+        isVisible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        onConfirm={deleteAcount}
+      />
       <form
         action=""
         ref={formRef}
@@ -196,7 +169,7 @@ function Profil() {
       <div class="flex justify-start mt-4">
         <button
           class="w-full md:w-48 border-b border-gray-300 outline-none text-red-500 hover:bg-red-100 py-2 cursor-pointer"
-          onClick={() => deleteAcount()}
+          onClick={openModel}
         >
           Supprimer
         </button>

@@ -76,14 +76,13 @@
 
 .main {
   position: relative;
-  /* height: 70vh;
-  padding-top: 50px;
-  margin-left: 10%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px; */
 }
 
+@media screen and (max-width: 1000px) {
+  .main img {
+    height: 50%;
+  }
+}
 /* .footer {
   background: #373737;
   height: 20vh;

@@ -38,3 +38,15 @@
   gap: 10px;
   justify-content: center;
 } */
+
+.createPage-right {
+  height: 100vh;
+}
+
+.createTraining {
+  height: 88%;
+  overflow-y: auto;
+}
+.createTraining::-webkit-scrollbar {
+  display: none;
+}

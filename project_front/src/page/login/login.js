@@ -44,28 +44,6 @@ function Login() {
   };
 
   return (
-    // <div className="login">
-    //   <div className="left">
-    //     <form ref={formRef} onSubmit={handleSubmit}>
-    //       <legend>CONNEXION</legend>
-
-    //       <input type="email" name="email" placeholder="Email" required />
-
-    //       <input
-    //         type="password"
-    //         name="password"
-    //         required
-    //         placeholder="Mot de passe"
-    //       />
-    //       <button type="submit">Valider</button>
-
-    //       <p id="error">{error}</p>
-
-    //       <NavLink to="/register">Vous n'êtes pas encore inscrit ?</NavLink>
-    //     </form>
-    //   </div>
-    //   <div className="right"></div>
-    // </div>
     <div class="h-screen md:flex">
       <div class="relative overflow-hidden md:flex w-1/2 bg-[url('/public/img/homme-dips.jpg')] bg-center bg-cover justify-around items-center hidden md:block"></div>
 
@@ -101,6 +79,7 @@ function Login() {
           >
             Valider
           </button>
+          <p id="error">{error}</p>
           <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer">
             <NavLink to="/register">Vous n'êtes pas encore inscrit ?</NavLink>
           </span>

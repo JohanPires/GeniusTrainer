@@ -108,7 +108,7 @@ function SideBar() {
                         : "flex items-center hover:text-indigo-400"
                     }
                   >
-                    <i className="fa-solid fa-comments mr-3"></i> Conversations
+                    <i className="fa-solid fa-comments mr-3"></i> Messagerie
                   </NavLink>
                 </li>
                 <li className="mb-4">

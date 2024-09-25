@@ -1,11 +1,15 @@
-import React, { useRef } from "react";
-// import "./register.css";
+import React, { useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import ModalRegister from "../../components/modal/modalRegister";
+import "./register.css";
 
 function Register() {
   const formRef = useRef(null);
   const navigate = useNavigate();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,50 +41,28 @@ function Register() {
           `http://127.0.0.1:8000/api/user/picture/${res.data.user.id}`,
           formData
         );
+
+        setIsModalVisible(true);
       })
-      .then(() => {
-        alert("Utilisateur crée");
-        navigate("/login");
+      .catch((error) => {
+        if (error.response && error.response.status === 422) {
+          setError("Ce mail est déjà utilisé");
+        }
       });
   };
 
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+    navigate("/login");
+  };
+
   return (
-    // <div className="register">
-    //   <div className="left"></div>
-    //   <div className="right">
-    //     <form ref={formRef} onSubmit={handleSubmit}>
-    //       <legend>INSCRIPTION</legend>
-    //       <input
-    //         type="name"
-    //         name="username"
-    //         placeholder="Nom d'utilisateur"
-    //         required
-    //       />
-
-    //       <input type="email" name="email" placeholder="Email" required />
-
-    //       <input
-    //         type="password"
-    //         name="password"
-    //         required
-    //         placeholder="Mot de passe"
-    //       />
-
-    //       <select name="role">
-    //         <option value="coach">Coach</option>
-    //         <option value="athletes">Sportif</option>
-    //       </select>
-
-    //       <input type="file" name="picture" />
-
-    //       <button type="submit">Valider</button>
-
-    //       <NavLink to="/login">Vous êtes déjà inscrit ?</NavLink>
-    //     </form>
-    //   </div>
-    // </div>
-
     <div class="h-screen md:flex">
+      <ModalRegister
+        message="Votre compte a été créé avec succès !"
+        isVisible={isModalVisible}
+        onClose={handleCloseModal}
+      />
       <div class="flex md:w-1/2 justify-center py-10 items-center bg-gray-800 h-full md:h-screen">
         <form
           class="bg-white p-4 md:p-6 lg:p-8 xl:p-10 rounded-2xl"
@@ -136,8 +118,11 @@ function Register() {
           >
             Valider
           </button>
+          <p id="error">{error}</p>
           <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer">
-            <NavLink to="/login">Vous êtes déjà inscrit ?</NavLink>
+            <NavLink className="text-center" to="/login">
+              Vous êtes déjà inscrit ?
+            </NavLink>
           </span>
         </form>
       </div>

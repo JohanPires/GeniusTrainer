@@ -124,149 +124,91 @@ function CreateTraining() {
   };
 
   return (
-    // <div className="createTraining">
-    //   <div className="createName">
-    //     <h1>Créer une Séance</h1>
+    <div className="createTraining">
+      <div class=" w-11/12 mx-auto my-5 shadow-md p-2 sm:p-8 flex flex-col gap-8">
+        <div class="createName">
+          <h1 class="text-2xl font-bold">Créer une Séance</h1>
+          <input
+            class="border-b border-gray-300 focus:outline-none w-full mt-3 sm:text-lg text-xs"
+            type="text"
+            placeholder="Nom de la séance"
+            value={trainingName}
+            onChange={(e) => setTrainingName(e.target.value)}
+          />
+        </div>
 
-    //     <input
-    //       type="text"
-    //       placeholder="Nom de la séance"
-    //       value={trainingName}
-    //       onChange={(e) => setTrainingName(e.target.value)}
-    //     />
-    //   </div>
+        <div class="createExercices">
+          <h2 class="text-lg font-semibold">Exercices</h2>
+          <div class="exercices flex flex-col gap-5 mt-3">
+            {exercises.map((exercise, index) => (
+              <div class="flex flex-col gap-3" key={index}>
+                <div className="flex gap-2">
+                  <input
+                    class="border-b border-gray-300 focus:outline-none w-full sm:text-lg text-xs"
+                    type="text"
+                    placeholder="Nom de l'exercice"
+                    value={exercise.name}
+                    onChange={(e) =>
+                      updateExercise(index, "name", e.target.value)
+                    }
+                  />
 
-    //   <div className="createExercices">
-    //     <h2>Exercices</h2>
-    //     <div className="exercices">
-    //       {exercises.map((exercise, index) => (
-    //         <div key={index}>
-    //           <input
-    //             type="text"
-    //             placeholder="Nom de l'exercice"
-    //             value={exercise.name}
-    //             onChange={(e) => updateExercise(index, "name", e.target.value)}
-    //           />
-    //           <input
-    //             type="text"
-    //             placeholder="Description"
-    //             value={exercise.advice}
-    //             onChange={(e) =>
-    //               updateExercise(index, "advice", e.target.value)
-    //             }
-    //           />
-    //           <input
-    //             type="number"
-    //             min="0"
-    //             placeholder="Répétitions"
-    //             value={exercise.repetitions}
-    //             onChange={(e) =>
-    //               updateExercise(index, "repetitions", e.target.value)
-    //             }
-    //           />
-    //           <input
-    //             type="number"
-    //             min="0"
-    //             placeholder="Séries"
-    //             value={exercise.sets}
-    //             onChange={(e) => updateExercise(index, "sets", e.target.value)}
-    //           />
-    //         </div>
-    //       ))}
-    //     </div>
-    //   </div>
-
-    //   <button onClick={addExercise}>Ajouter un exercice</button>
-
-    //   <div className="button-container">
-    //     <button onClick={sendTraining}>Enregistrer</button>
-    //     <button onClick={generatePDF}>Générer le PDF</button>
-    //   </div>
-    // </div>
-
-    <div class="createTraining w-11/12 mx-auto my-5 shadow-md p-2 sm:p-8 flex flex-col gap-8">
-      <div class="createName">
-        <h1 class="text-2xl font-bold">Créer une Séance</h1>
-        <input
-          class="border-b border-gray-300 focus:outline-none w-full mt-3 sm:text-lg text-xs"
-          type="text"
-          placeholder="Nom de la séance"
-          value={trainingName}
-          onChange={(e) => setTrainingName(e.target.value)}
-        />
-      </div>
-
-      <div class="createExercices">
-        <h2 class="text-lg font-semibold">Exercices</h2>
-        <div class="exercices flex flex-col gap-5 mt-3">
-          {exercises.map((exercise, index) => (
-            <div class="flex flex-col gap-3" key={index}>
-              <div className="flex gap-2">
+                  <input
+                    class="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
+                    type="number"
+                    min="0"
+                    placeholder="Répétitions"
+                    value={exercise.repetitions}
+                    onChange={(e) =>
+                      updateExercise(index, "repetitions", e.target.value)
+                    }
+                  />
+                  <input
+                    class="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
+                    type="number"
+                    min="0"
+                    placeholder="Séries"
+                    value={exercise.sets}
+                    onChange={(e) =>
+                      updateExercise(index, "sets", e.target.value)
+                    }
+                  />
+                </div>
                 <input
                   class="border-b border-gray-300 focus:outline-none w-full sm:text-lg text-xs"
                   type="text"
-                  placeholder="Nom de l'exercice"
-                  value={exercise.name}
+                  placeholder="Description"
+                  value={exercise.advice}
                   onChange={(e) =>
-                    updateExercise(index, "name", e.target.value)
-                  }
-                />
-
-                <input
-                  class="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
-                  type="number"
-                  min="0"
-                  placeholder="Répétitions"
-                  value={exercise.repetitions}
-                  onChange={(e) =>
-                    updateExercise(index, "repetitions", e.target.value)
-                  }
-                />
-                <input
-                  class="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
-                  type="number"
-                  min="0"
-                  placeholder="Séries"
-                  value={exercise.sets}
-                  onChange={(e) =>
-                    updateExercise(index, "sets", e.target.value)
+                    updateExercise(index, "advice", e.target.value)
                   }
                 />
               </div>
-              <input
-                class="border-b border-gray-300 focus:outline-none w-full sm:text-lg text-xs"
-                type="text"
-                placeholder="Description"
-                value={exercise.advice}
-                onChange={(e) =>
-                  updateExercise(index, "advice", e.target.value)
-                }
-              />
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      <button
-        class="w-48 border-2 border-gray-300 text-gray-500 rounded-full py-2 text-xs sm:text-sm font-bold hover:bg-gray-100"
-        onClick={addExercise}
-      >
-        Ajouter un exercice
-      </button>
-
-      <div class="button-container flex gap-3 justify-center">
         <button
           class="w-48 border-2 border-gray-300 text-gray-500 rounded-full py-2 text-xs sm:text-sm font-bold hover:bg-gray-100"
-          onClick={sendTraining}
+          onClick={addExercise}
         >
-          Enregistrer
+          Ajouter un exercice
         </button>
-        <button
-          class="w-48 border-2 border-gray-300 text-gray-500 rounded-full py-2 text-xs sm:text-sm font-bold hover:bg-gray-100"
-          onClick={generatePDF}
-        >
-          Générer le PDF
-        </button>
+
+        <div class="button-container flex gap-3 justify-center">
+          <button
+            class="w-48 border-2 border-gray-300 text-gray-500 rounded-full py-2 text-xs sm:text-sm font-bold hover:bg-gray-100"
+            onClick={sendTraining}
+          >
+            Enregistrer
+          </button>
+          <button
+            class="w-48 border-2 border-gray-300 text-gray-500 rounded-full py-2 text-xs sm:text-sm font-bold hover:bg-gray-100"
+            onClick={generatePDF}
+          >
+            Générer le PDF
+          </button>
+        </div>
       </div>
     </div>
   );
