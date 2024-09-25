@@ -101,7 +101,7 @@ function SideBar() {
                 </li>
                 <li className="mb-4">
                   <NavLink
-                    to="/dashboard/conversations"
+                    to="/dashboard/chat"
                     className={({ isActive }) =>
                       isActive
                         ? "flex items-center text-indigo-500"

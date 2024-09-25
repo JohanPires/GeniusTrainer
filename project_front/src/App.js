@@ -8,6 +8,7 @@ import CreatePage from "./page/createPage/createPage";
 import SavePage from "./page/savePage/savePage";
 import ProfilPage from "./page/profilPage/profilPage";
 import AdminPage from "./page/adminPage/adminPage";
+import ChatPage from "./page/chatPage/chatPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/dashboard/save" element={<SavePage />} />
         <Route path="/dashboard/profil" element={<ProfilPage />} />
         <Route path="/dashboard/admin" element={<AdminPage />} />
+        <Route path="/dashboard/chat" element={<ChatPage />} />
       </Routes>
     </div>
   );
