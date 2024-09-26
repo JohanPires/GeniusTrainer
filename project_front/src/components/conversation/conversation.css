@@ -1,0 +1,7 @@
+.conversation {
+  max-height: 80%;
+}
+
+.messages::-webkit-scrollbar {
+  display: none;
+}

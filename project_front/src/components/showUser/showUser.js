@@ -56,32 +56,6 @@ function ShowUser({ user }) {
   };
 
   return (
-    // <div classNameName="showUser">
-    //   <form action="" ref={formRef} onSubmit={(e) => handleSubmit(e)}>
-    //     <div classNameName="">
-    //       <label htmlFor="name">Nom d'utilisateur :</label>
-    //       <input type="text" name="name" required defaultValue={user.name} />
-    //     </div>
-    //     <div classNameName="">
-    //       <label htmlFor="">Email :</label>
-    //       <input type="email" name="email" required defaultValue={user.email} />
-    //     </div>
-    //     <div classNameName="">
-    //       <label htmlFor="">Photo de Profil :</label>
-    //       <input type="file" name="picture" />
-    //     </div>
-    //     <div classNameName="">
-    //       <label htmlFor="">Mot de passe :</label>
-    //       <input type="password" name="password" placeholder="********" />
-    //     </div>
-    //     <p id="error">{error}</p>
-
-    //     <div classNameName="button-container">
-    //       <input type="submit" value="Sauvegarder" />
-    //     </div>
-    //   </form>
-    //   <button onClick={() => handleDelete()}>Supprimer</button>
-    // </div>
     <div className="showUser w-11/12 mx-auto my-5 shadow-md p-8">
       <form
         action=""

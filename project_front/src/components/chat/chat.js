@@ -1,86 +1,85 @@
-import React, { useEffect, useState } from "react";
-import { collection, addDoc, onSnapshot } from "firebase/firestore";
-import { db } from "../../lib/firebase"; // Assurez-vous que votre fichier firebase.js est configuré correctement
+import React, { useState } from "react";
+import axios from "axios";
+import Conversation from "../conversation/conversation";
+import "./chat.css";
 
 function Chat() {
-  // State pour gérer les messages et l'entrée utilisateur
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
+  const [results, setResults] = useState([]);
+  const [openConv, setOpenConv] = useState(false);
+  const [receiver, setReceiver] = useState("");
 
-  // Fonction pour envoyer un message
-  const sendMessage = async () => {
-    if (newMessage.trim() === "") return; // Empêcher l'envoi de messages vides
+  const handleSearch = async (value) => {
+    const token = localStorage.getItem("authToken");
     const user_id = localStorage.getItem("user_id");
-    try {
-      // Envoyer le message à Firestore
-      await addDoc(collection(db, "messages"), {
-        text: newMessage,
-        from: user_id,
-        to: "Utilisateur2", // Remplacer par l'ID ou le nom du destinataire
-        timestamp: new Date(),
-      });
 
-      // Réinitialiser le champ de saisie
-      setNewMessage("");
-    } catch (e) {
-      console.error("Erreur lors de l'envoi du message : ", e);
+    if (value !== "") {
+      try {
+        axios
+          .get(`http://127.0.0.1:8000/api/user`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            console.log(user_id);
+            setResults(
+              response.data.filter(
+                (res) =>
+                  res.name.toLowerCase().includes(value.toLowerCase()) &&
+                  res.id !== parseInt(user_id)
+              )
+            );
+          });
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    } else {
+      setResults([]);
     }
   };
 
-  // Fonction pour récupérer les messages en temps réel
-  const fetchMessages = () => {
-    const unsubscribe = onSnapshot(
-      collection(db, "messages"),
-      (snapshot) => {
-        const fetchedMessages = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        // Mettre à jour l'état avec les messages récupérés
-        setMessages(fetchedMessages);
-      },
-      (error) => {
-        console.error("Erreur lors de la récupération des messages : ", error);
-      }
-    );
-
-    return unsubscribe; // Arrêter l'écoute en quittant le composant
+  const handleConv = (user) => {
+    setOpenConv(true);
+    setReceiver(user);
+    setResults([]);
   };
 
-  // Utiliser useEffect pour écouter les messages à chaque chargement du composant
-  useEffect(() => {
-    const unsubscribe = fetchMessages();
-    return () => unsubscribe(); // Nettoyage : arrêter l'écoute lors du démontage du composant
-  }, []);
-
   return (
-    <div className="chat">
-      {/* Affichage des messages */}
-      <div className="messages">
-        {messages.map((message) => (
-          <div key={message.id} className="message">
-            <strong>{message.from}: </strong> {message.text}
-            <br />
-            <small>
-              {/* {new Date(message.timestamp.toDate()).toLocaleString()} */}
-            </small>
-          </div>
-        ))}
+    <div className="chat ">
+      <div className="searchBar w-4/5 sm:w-2/5 mx-auto my-5  flex flex-col gap-2">
+        <div className="shadow-md p-5 rounded-full flex gap-2">
+          <label htmlFor="search">
+            <i className="fa-solid fa-magnifying-glass text-gray-300"></i>
+          </label>
+          <input
+            className="w-4/5 border-b border-gray-300 focus:outline-none text-gray-500 "
+            type="text"
+            id="search"
+            onChange={(e) => handleSearch(e.target.value)}
+            placeholder="Search for users..."
+            autocomplete="off"
+          />
+        </div>
       </div>
 
-      {/* Formulaire d'envoi de message */}
-      <div className="send-message">
-        <input
-          type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Tapez votre message..."
-        />
-        <button onClick={sendMessage}>Envoyer</button>
-      </div>
+      {results.length > 0 && (
+        <div className="w-4/5 sm:w-2/5 mx-auto bg-white shadow-md rounded-lg p-3 absolute translate-x-[50%]">
+          {results.map((user) => (
+            <div
+              key={user.id}
+              className="p-2 hover:bg-gray-200 cursor-pointer w-full"
+              onClick={() => handleConv(user)}
+            >
+              {user.name}
+            </div>
+          ))}
+        </div>
+      )}
+      {openConv && <Conversation receiver={receiver} />}
     </div>
   );
 }
 
 export default Chat;
+// where("from", "in", [user_id, receiver.id]), // Messages envoyés par l'utilisateur ou le destinataire
+// where("to", "in", [user_id, receiver.id]), // Messages reçus par l'utilisateur ou le destinataire

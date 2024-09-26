@@ -32,7 +32,6 @@ class UserController extends Controller
 
     public function editUser($id, Request $request) {
         $user = User::find($id);
-        Log::info($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
