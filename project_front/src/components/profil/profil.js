@@ -16,7 +16,7 @@ function Profil() {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/api/user/${user_id}`, {
+      .get(`${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/${user_id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -35,7 +35,7 @@ function Profil() {
 
     axios
       .put(
-        `http://127.0.0.1:8000/api/user/${user_id}`,
+        `${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/${user_id}`,
         {
           name: name,
           email: email,
@@ -49,10 +49,11 @@ function Profil() {
       )
       .then((res) => {
         axios.post(
-          `http://127.0.0.1:8000/api/user/picture/${res.data.user.id}`,
+          `${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/picture/${res.data.user.id}`,
           formData
         );
         setError("");
+        window.location.reload();
       })
       .then((res) => {
         setUserData(res.data.user);
@@ -70,7 +71,7 @@ function Profil() {
 
   const deleteAcount = () => {
     axios
-      .delete(`http://127.0.0.1:8000/api/user/${user_id}`, {
+      .delete(`${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/${user_id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -81,7 +82,7 @@ function Profil() {
   };
 
   return (
-    <div class="showUser w-11/12 mx-auto my-5 shadow-md p-8">
+    <div className="showUser w-11/12 mx-auto my-5 shadow-md p-8">
       <Modal
         isVisible={isModalVisible}
         onClose={() => setIsModalVisible(false)}
@@ -91,17 +92,17 @@ function Profil() {
         action=""
         ref={formRef}
         onSubmit={(e) => handleSubmit(e)}
-        class="flex flex-col gap-6"
+        className="flex flex-col gap-6"
       >
-        <div class="flex flex-col md:flex-row justify-between md:w-3/5 w-full">
+        <div className="flex flex-col md:flex-row justify-between md:w-3/5 w-full">
           <label
-            for="name"
-            class="w-full md:w-1/3 mb-2 md:mb-0 text-sm md:text-base lg:text-lg"
+            htmlFor="name"
+            className="w-full md:w-1/3 mb-2 md:mb-0 text-sm md:text-base lg:text-lg"
           >
             Nom d'utilisateur :
           </label>
           <input
-            class="border-b border-gray-300 outline-none text-gray-500 w-full md:w-2/3"
+            className="border-b border-gray-300 outline-none text-gray-500 w-full md:w-2/3"
             type="text"
             name="name"
             required
@@ -109,15 +110,15 @@ function Profil() {
           />
         </div>
 
-        <div class="flex flex-col md:flex-row justify-between md:w-3/5 w-full">
+        <div className="flex flex-col md:flex-row justify-between md:w-3/5 w-full">
           <label
-            for="email"
-            class="w-full md:w-1/3 mb-2 md:mb-0 text-sm md:text-base lg:text-lg"
+            htmlFor="email"
+            className="w-full md:w-1/3 mb-2 md:mb-0 text-sm md:text-base lg:text-lg"
           >
             Email :
           </label>
           <input
-            class="border-b border-gray-300 outline-none text-gray-500 w-full md:w-2/3"
+            className="border-b border-gray-300 outline-none text-gray-500 w-full md:w-2/3"
             type="email"
             name="email"
             required
@@ -125,50 +126,50 @@ function Profil() {
           />
         </div>
 
-        <div class="flex flex-col md:flex-row justify-between md:w-3/5 w-full">
+        <div className="flex flex-col md:flex-row justify-between md:w-3/5 w-full">
           <label
-            for="picture"
-            class="w-full md:w-1/3 mb-2 md:mb-0 text-sm md:text-base lg:text-lg"
+            htmlFor="picture"
+            className="w-full md:w-1/3 mb-2 md:mb-0 text-sm md:text-base lg:text-lg"
           >
             Photo de Profil :
           </label>
           <input
-            class="border-b border-gray-300 outline-none text-gray-500 w-full md:w-2/3 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-gray-200 file:text-gray-600 hover:file:bg-gray-300"
+            className="border-b border-gray-300 outline-none text-gray-500 w-full md:w-2/3 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-gray-200 file:text-gray-600 hover:file:bg-gray-300"
             type="file"
             name="picture"
           />
         </div>
 
-        <div class="flex flex-col md:flex-row justify-between md:w-3/5 w-full">
+        <div className="flex flex-col md:flex-row justify-between md:w-3/5 w-full">
           <label
-            for="password"
-            class="w-full md:w-1/3 mb-2 md:mb-0 text-sm md:text-base lg:text-lg"
+            htmlFor="password"
+            className="w-full md:w-1/3 mb-2 md:mb-0 text-sm md:text-base lg:text-lg"
           >
             Mot de passe :
           </label>
           <input
-            class="border-b border-gray-300 outline-none text-gray-500 w-full md:w-2/3"
+            className="border-b border-gray-300 outline-none text-gray-500 w-full md:w-2/3"
             type="password"
             name="password"
             placeholder="********"
           />
         </div>
 
-        <p id="error" class="text-red-500">
+        <p id="error" className="text-red-500">
           {error}
         </p>
 
-        <div class="button-container flex flex-col md:flex-row justify-start gap-4">
+        <div className="button-container flex flex-col md:flex-row justify-start gap-4">
           <input
-            class="w-full md:w-48 border-b border-gray-300 outline-none text-gray-500 hover:bg-gray-100 py-2 cursor-pointer"
+            className="w-full md:w-48 border-b border-gray-300 outline-none text-gray-500 hover:bg-gray-100 py-2 cursor-pointer"
             type="submit"
             value="Sauvegarder"
           />
         </div>
       </form>
-      <div class="flex justify-start mt-4">
+      <div className="flex justify-start mt-4">
         <button
-          class="w-full md:w-48 border-b border-gray-300 outline-none text-red-500 hover:bg-red-100 py-2 cursor-pointer"
+          className="w-full md:w-48 border-b border-gray-300 outline-none text-red-500 hover:bg-red-100 py-2 cursor-pointer"
           onClick={openModel}
         >
           Supprimer

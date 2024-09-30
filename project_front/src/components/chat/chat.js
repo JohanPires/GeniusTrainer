@@ -15,13 +15,12 @@ function Chat() {
     if (value !== "") {
       try {
         axios
-          .get(`http://127.0.0.1:8000/api/user`, {
+          .get(`${process.env.REACT_APP_BACK_URL_LARAVEL}api/user`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           })
           .then((response) => {
-            console.log(user_id);
             setResults(
               response.data.filter(
                 (res) =>
@@ -57,13 +56,13 @@ function Chat() {
             id="search"
             onChange={(e) => handleSearch(e.target.value)}
             placeholder="Search for users..."
-            autocomplete="off"
+            autoComplete="off"
           />
         </div>
       </div>
 
       {results.length > 0 && (
-        <div className="w-4/5 sm:w-2/5 mx-auto bg-white shadow-md rounded-lg p-3 absolute translate-x-[50%]">
+        <div className="w-4/5 sm:w-2/5 mx-auto bg-white shadow-md rounded-lg p-3 absolute translate-x-[12%] sm:translate-x-[25%] md:translate-x-[50%]">
           {results.map((user) => (
             <div
               key={user.id}

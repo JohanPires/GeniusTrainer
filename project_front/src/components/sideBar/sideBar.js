@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from "react";
-
-// import "./sideBar.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SideBar() {
   const url = useLocation();
-  const [pathname, setPathname] = useState("");
   const [role, setRole] = useState("");
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const user_id = localStorage.getItem("user_id");
   const token = localStorage.getItem("authToken");
-  useEffect(() => {
-    setPathname(url.pathname);
 
+  useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/api/user/${user_id}`, {
+      .get(`${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/${user_id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -26,12 +22,12 @@ function SideBar() {
       .then((res) => {
         setRole(res.data.role);
       });
-  }, []);
+  }, [user_id, token, url.pathname]);
 
   const handleLogout = () => {
     axios
       .post(
-        `http://127.0.0.1:8000/api/logout`,
+        `${process.env.REACT_APP_BACK_URL_LARAVEL}api/logout`,
         {},
         {
           headers: {
@@ -48,9 +44,41 @@ function SideBar() {
       });
   };
 
+  const links = [
+    {
+      to: "/dashboard/create",
+      text: "Créer une séance",
+      icon: "fa-house",
+      condition: role === "admin" || role === "coach",
+    },
+    {
+      to: "/dashboard/save",
+      text: "Séances enregistrées",
+      icon: "fa-list",
+      condition: role === "admin" || role === "coach",
+    },
+    {
+      to: "/dashboard/chat",
+      text: "Messagerie",
+      icon: "fa-comments",
+      condition: true,
+    },
+    {
+      to: "/dashboard/profil",
+      text: "Mon profil",
+      icon: "fa-user",
+      condition: true,
+    },
+    {
+      to: "/dashboard/admin",
+      text: "Admin",
+      icon: "fa-shield-alt",
+      condition: role === "admin",
+    },
+  ];
+
   return (
     <div>
-      {/* Bouton menu burger visible au-dessus de 1500px */}
       <div className="lg:hidden p-5 absolute translate-y-2 -translate-x-5 sm:translate-x-0">
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -60,7 +88,6 @@ function SideBar() {
         </button>
       </div>
 
-      {/* Sidebar, affichée ou cachée selon l'état isOpen et la taille de l'écran */}
       <div
         className={`${
           isOpen ? "translate-x-0" : "-translate-x-full"
@@ -74,69 +101,23 @@ function SideBar() {
             </div>
             <div className="nav-container mt-8 pl-2">
               <ul>
-                <li className="mb-4">
-                  <NavLink
-                    to="/dashboard/create"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "flex items-center text-indigo-500"
-                        : "flex items-center hover:text-indigo-400"
-                    }
-                  >
-                    <i className="fa-solid fa-house mr-3"></i> Créer une séance
-                  </NavLink>
-                </li>
-                <li className="mb-4">
-                  <NavLink
-                    to="/dashboard/save"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "flex items-center text-indigo-500"
-                        : "flex items-center hover:text-indigo-400"
-                    }
-                  >
-                    <i className="fa-solid fa-list mr-3"></i> Séances
-                    enregistrées
-                  </NavLink>
-                </li>
-                <li className="mb-4">
-                  <NavLink
-                    to="/dashboard/chat"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "flex items-center text-indigo-500"
-                        : "flex items-center hover:text-indigo-400"
-                    }
-                  >
-                    <i className="fa-solid fa-comments mr-3"></i> Messagerie
-                  </NavLink>
-                </li>
-                <li className="mb-4">
-                  <NavLink
-                    to="/dashboard/profil"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "flex items-center text-indigo-500"
-                        : "flex items-center hover:text-indigo-400"
-                    }
-                  >
-                    <i className="fa-solid fa-user mr-3"></i> Mon profil
-                  </NavLink>
-                </li>
-                {role === "admin" && (
-                  <li className="mb-4">
-                    <NavLink
-                      to="/dashboard/admin"
-                      className={({ isActive }) =>
-                        isActive
-                          ? "flex items-center text-indigo-500"
-                          : "flex items-center hover:text-indigo-400"
-                      }
-                    >
-                      <i className="fa-solid fa-shield-alt mr-3"></i> Admin
-                    </NavLink>
-                  </li>
-                )}
+                {links
+                  .filter((link) => link.condition)
+                  .map((link, index) => (
+                    <li key={index} className="mb-4">
+                      <NavLink
+                        to={link.to}
+                        className={({ isActive }) =>
+                          isActive
+                            ? "flex items-center text-indigo-500"
+                            : "flex items-center hover:text-indigo-400"
+                        }
+                      >
+                        <i className={`fa-solid ${link.icon} mr-3`}></i>
+                        {link.text}
+                      </NavLink>
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
@@ -152,7 +133,6 @@ function SideBar() {
         </div>
       </div>
 
-      {/* Overlay pour fermer la sidebar lorsqu'elle est ouverte sur les grands écrans */}
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}

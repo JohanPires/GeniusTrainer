@@ -21,7 +21,7 @@ function CreateTraining() {
     ) {
       axios
         .post(
-          "http://127.0.0.1:8000/api/training",
+          `${process.env.REACT_APP_BACK_URL_LARAVEL}api/training`,
           {
             name: trainingName,
           },
@@ -40,7 +40,7 @@ function CreateTraining() {
               execice.sets !== ""
             ) {
               axios.post(
-                "http://127.0.0.1:8000/api/exercices",
+                `${process.env.REACT_APP_BACK_URL_LARAVEL}api/exercices`,
                 {
                   name: execice.name,
                   advice: execice.advice,
@@ -125,11 +125,11 @@ function CreateTraining() {
 
   return (
     <div className="createTraining">
-      <div class=" w-11/12 mx-auto my-5 shadow-md p-2 sm:p-8 flex flex-col gap-8">
-        <div class="createName">
-          <h1 class="text-2xl font-bold">Créer une Séance</h1>
+      <div className=" w-11/12 mx-auto my-5 shadow-md p-2 sm:p-8 flex flex-col gap-8">
+        <div className="createName">
+          <h1 className="text-2xl font-bold">Créer une Séance</h1>
           <input
-            class="border-b border-gray-300 focus:outline-none w-full mt-3 sm:text-lg text-xs"
+            className="border-b border-gray-300 focus:outline-none w-full mt-3 sm:text-lg text-xs"
             type="text"
             placeholder="Nom de la séance"
             value={trainingName}
@@ -137,14 +137,14 @@ function CreateTraining() {
           />
         </div>
 
-        <div class="createExercices">
-          <h2 class="text-lg font-semibold">Exercices</h2>
-          <div class="exercices flex flex-col gap-5 mt-3">
+        <div className="createExercices">
+          <h2 className="text-lg font-semibold">Exercices</h2>
+          <div className="exercices flex flex-col gap-5 mt-3">
             {exercises.map((exercise, index) => (
-              <div class="flex flex-col gap-3" key={index}>
+              <div className="flex flex-col gap-3" key={index}>
                 <div className="flex gap-2">
                   <input
-                    class="border-b border-gray-300 focus:outline-none w-full sm:text-lg text-xs"
+                    className="border-b border-gray-300 focus:outline-none w-full sm:text-lg text-xs"
                     type="text"
                     placeholder="Nom de l'exercice"
                     value={exercise.name}
@@ -154,7 +154,7 @@ function CreateTraining() {
                   />
 
                   <input
-                    class="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
+                    className="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
                     type="number"
                     min="0"
                     placeholder="Répétitions"
@@ -164,7 +164,7 @@ function CreateTraining() {
                     }
                   />
                   <input
-                    class="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
+                    className="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
                     type="number"
                     min="0"
                     placeholder="Séries"
@@ -175,7 +175,7 @@ function CreateTraining() {
                   />
                 </div>
                 <input
-                  class="border-b border-gray-300 focus:outline-none w-full sm:text-lg text-xs"
+                  className="border-b border-gray-300 focus:outline-none w-full sm:text-lg text-xs"
                   type="text"
                   placeholder="Description"
                   value={exercise.advice}
@@ -189,21 +189,21 @@ function CreateTraining() {
         </div>
 
         <button
-          class="w-48 border-2 border-gray-300 text-gray-500 rounded-full py-2 text-xs sm:text-sm font-bold hover:bg-gray-100"
+          className="w-48 border-2 border-gray-300 text-gray-500 rounded-full py-2 text-xs sm:text-sm font-bold hover:bg-gray-100"
           onClick={addExercise}
         >
           Ajouter un exercice
         </button>
 
-        <div class="button-container flex gap-3 justify-center">
+        <div className="button-container flex gap-3 justify-center">
           <button
-            class="w-48 border-2 border-gray-300 text-gray-500 rounded-full py-2 text-xs sm:text-sm font-bold hover:bg-gray-100"
+            className="w-48 border-2 border-gray-300 text-gray-500 rounded-full py-2 text-xs sm:text-sm font-bold hover:bg-gray-100"
             onClick={sendTraining}
           >
             Enregistrer
           </button>
           <button
-            class="w-48 border-2 border-gray-300 text-gray-500 rounded-full py-2 text-xs sm:text-sm font-bold hover:bg-gray-100"
+            className="w-48 border-2 border-gray-300 text-gray-500 rounded-full py-2 text-xs sm:text-sm font-bold hover:bg-gray-100"
             onClick={generatePDF}
           >
             Générer le PDF

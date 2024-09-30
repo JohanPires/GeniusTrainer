@@ -7,7 +7,6 @@ function ShowTraining({ training }) {
   const [formatDate, setFormatDate] = useState("");
   const [template, setTemplate] = useState("normal");
   const [deleted, setDeleted] = useState(false);
-  // const [deleted, setDeleted] = useState(false);
 
   useEffect(() => {
     const day = training.created_at.split("T")[0].split("-")[2];
@@ -25,7 +24,7 @@ function ShowTraining({ training }) {
 
     axios
       .put(
-        `http://127.0.0.1:8000/api/training/${training.id}`,
+        `${process.env.REACT_APP_BACK_URL_LARAVEL}api/training/${training.id}`,
         {
           name: sessionName,
         },
@@ -45,7 +44,7 @@ function ShowTraining({ training }) {
           ) {
             if (execice.id !== undefined) {
               axios.put(
-                `http://127.0.0.1:8000/api/exercices/${execice.id}`,
+                `${process.env.REACT_APP_BACK_URL_LARAVEL}api/exercices/${execice.id}`,
                 {
                   name: execice.name,
                   advice: execice.description,
@@ -62,7 +61,7 @@ function ShowTraining({ training }) {
               );
             } else {
               axios.post(
-                "http://127.0.0.1:8000/api/exercices",
+                `${process.env.REACT_APP_BACK_URL_LARAVEL}api/exercices`,
                 {
                   name: execice.name,
                   advice: execice.description,
@@ -89,12 +88,15 @@ function ShowTraining({ training }) {
   const deleteTraining = (id) => {
     setDeleted(true);
     const token = localStorage.getItem("authToken");
-    axios.delete(`http://127.0.0.1:8000/api/training/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    axios.delete(
+      `${process.env.REACT_APP_BACK_URL_LARAVEL}api/training/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   };
 
   const addExercise = () => {
@@ -117,12 +119,15 @@ function ShowTraining({ training }) {
     const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
     setExercises(updatedExercises);
     if (id !== undefined) {
-      axios.delete(`http://127.0.0.1:8000/api/exercices/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      axios.delete(
+        `${process.env.REACT_APP_BACK_URL_LARAVEL}api/exercices/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     }
   };
 
@@ -154,7 +159,6 @@ function ShowTraining({ training }) {
   };
 
   useEffect(() => {
-    console.log(training);
     setSessionName(training.name);
     setExercises(() => {
       const newExercises = training.exercices.map((exercice) => ({
@@ -171,16 +175,16 @@ function ShowTraining({ training }) {
   return (
     <div>
       {deleted === false && (
-        <div class="showTraining-container w-11/12 mx-auto my-5 shadow-md p-4 sm:p-8">
+        <div className="showTraining-container w-11/12 mx-auto my-5 shadow-md p-4 sm:p-8">
           {template === "normal" && (
-            <div class="showTraining-container-normal flex justify-between">
-              <div class="showTraining-left flex flex-col md:flex-row md:items-center items-start gap-2 md:gap-10 w-1/2 text-sm sm:text-md">
+            <div className="showTraining-container-normal flex justify-between">
+              <div className="showTraining-left flex flex-col md:flex-row md:items-center items-start gap-2 md:gap-10 w-1/2 text-sm sm:text-md">
                 <h3>{sessionName}</h3>
                 <p className="">créé le: {formatDate}</p>
               </div>
-              <div class="showTraining-rigth">
+              <div className="showTraining-rigth">
                 <button
-                  class="w-24 sm:w-36 border-2 border-gray-300 text-gray-500 rounded-full py-1 sm:py-2 text-sm font-bold hover:bg-gray-100"
+                  className="w-24 sm:w-36 border-2 border-gray-300 text-gray-500 rounded-full py-1 sm:py-2 text-sm font-bold hover:bg-gray-100"
                   onClick={() => setTemplate("edit")}
                 >
                   Modifier
@@ -190,10 +194,10 @@ function ShowTraining({ training }) {
           )}
 
           {template === "edit" && (
-            <div class="showTraining-container-edit flex flex-col gap-5">
-              <div class="createName">
+            <div className="showTraining-container-edit flex flex-col gap-5">
+              <div className="createName">
                 <input
-                  class="border-b border-gray-300 focus:outline-none w-full"
+                  className="border-b border-gray-300 focus:outline-none w-full"
                   type="text"
                   placeholder="Nom de la séance"
                   value={sessionName}
@@ -201,15 +205,15 @@ function ShowTraining({ training }) {
                 />
               </div>
 
-              <div class="exercices-container flex flex-col gap-2">
-                <h2 class="text-xl font-semibold">Exercices :</h2>
-                <div class="exercices flex flex-col gap-2">
+              <div className="exercices-container flex flex-col gap-2">
+                <h2 className="text-xl font-semibold">Exercices :</h2>
+                <div className="exercices flex flex-col gap-2">
                   {exercises &&
                     exercises.map((exercise, index) => (
-                      <div class="flex flex-col gap-3" key={index}>
+                      <div className="flex flex-col gap-3" key={index}>
                         <div className="flex gap-2">
                           <input
-                            class="border-b border-gray-300 focus:outline-none w-full sm:text-lg text-xs"
+                            className="border-b border-gray-300 focus:outline-none w-full sm:text-lg text-xs"
                             type="text"
                             placeholder="Nom de l'exercice"
                             value={exercise.name}
@@ -219,7 +223,7 @@ function ShowTraining({ training }) {
                           />
 
                           <input
-                            class="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
+                            className="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
                             type="number"
                             min="0"
                             placeholder="Répétitions"
@@ -233,7 +237,7 @@ function ShowTraining({ training }) {
                             }
                           />
                           <input
-                            class="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
+                            className="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
                             type="number"
                             min="0"
                             placeholder="Séries"
@@ -244,7 +248,7 @@ function ShowTraining({ training }) {
                           />
                         </div>
                         <input
-                          class="border-b border-gray-300 focus:outline-none w-full sm:text-lg text-xs"
+                          className="border-b border-gray-300 focus:outline-none w-full sm:text-lg text-xs"
                           type="text"
                           placeholder="Description"
                           value={exercise.description}
@@ -261,27 +265,27 @@ function ShowTraining({ training }) {
               </div>
 
               <button
-                class="w-48 border-2 border-gray-300 text-gray-500 rounded-full py-2 text-sm sm:font-bold hover:bg-gray-100 m-auto sm:m-0"
+                className="w-48 border-2 border-gray-300 text-gray-500 rounded-full py-2 text-sm sm:font-bold hover:bg-gray-100 m-auto sm:m-0"
                 onClick={addExercise}
               >
                 Ajouter un exercice
               </button>
 
-              <div class="button-container flex gap-3 justify-center">
+              <div className="button-container flex gap-3 justify-center">
                 <button
-                  class="w-48 sm:border-2 sm:border-gray-300 text-gray-500 rounded-full py-2 text-sm sm:font-bold sm:hover:bg-gray-100 hover:text-gray-300 sm:hover:text-gray-500 "
+                  className="w-48 sm:border-2 sm:border-gray-300 text-gray-500 rounded-full py-2 text-sm sm:font-bold sm:hover:bg-gray-100 hover:text-gray-300 sm:hover:text-gray-500 "
                   onClick={() => setTemplate("normal")}
                 >
                   Retour
                 </button>
                 <button
-                  class="w-48 sm:border-2 sm:border-gray-300 text-gray-500 rounded-full py-2 text-sm sm:font-bold sm:hover:bg-gray-100 hover:text-gray-300 sm:hover:text-gray-500  "
+                  className="w-48 sm:border-2 sm:border-gray-300 text-gray-500 rounded-full py-2 text-sm sm:font-bold sm:hover:bg-gray-100 hover:text-gray-300 sm:hover:text-gray-500  "
                   onClick={updateTraining}
                 >
                   Enregistrer
                 </button>
                 <button
-                  class="w-48 sm:border-2 sm:border-gray-300 text-gray-500 rounded-full py-2 text-sm sm:font-bold sm:hover:bg-gray-100 hover:text-gray-300 sm:hover:text-gray-500 "
+                  className="w-48 sm:border-2 sm:border-gray-300 text-gray-500 rounded-full py-2 text-sm sm:font-bold sm:hover:bg-gray-100 hover:text-gray-300 sm:hover:text-gray-500 "
                   onClick={generatePDF}
                 >
                   Générer le PDF

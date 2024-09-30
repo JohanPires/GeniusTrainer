@@ -12,7 +12,7 @@ function ProfilBar() {
     const user_id = localStorage.getItem("user_id");
 
     axios
-      .get(`http://127.0.0.1:8000/api/user/${user_id}`, {
+      .get(`${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/${user_id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,31 +28,12 @@ function ProfilBar() {
   }, []);
 
   return (
-    // <div className="profilBar">
-    //   <div className="left">
-    //     <img
-    //       src={
-    //         userData.profile_photo_path
-    //           ? `http://localhost:8000/storage/${userData.profile_photo_path}`
-    //           : "/img/test.png"
-    //       }
-    //       alt=""
-    //       height="40px"
-    //       width="40px"
-    //     />
-    //     <h3>{userData.name}</h3>
-    //     <p>{userData.role}</p>
-    //   </div>
-    //   <div className="right">
-    //     <span>{currentDate}</span>
-    //   </div>
-    // </div>
     <div className="flex justify-end lg:justify-between items-center p-5 shadow-md">
       <div className="flex items-center gap-10">
         <img
           src={
             userData.profile_photo_path
-              ? `http://localhost:8000/storage/${userData.profile_photo_path}`
+              ? `${process.env.REACT_APP_BACK_URL_LARAVEL}storage/${userData.profile_photo_path}`
               : "/img/test.png"
           }
           alt=""

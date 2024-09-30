@@ -18,7 +18,7 @@ function AllTraining() {
   useEffect(() => {
     if (role === "admin" && url.pathname === "/dashboard/admin") {
       axios
-        .get(`http://127.0.0.1:8000/api/training`, {
+        .get(`${process.env.REACT_APP_BACK_URL_LARAVEL}api/training`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -26,11 +26,14 @@ function AllTraining() {
         .then((res) => setAlltrainings(res.data));
     } else {
       axios
-        .get(`http://127.0.0.1:8000/api/training/${user_id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .get(
+          `${process.env.REACT_APP_BACK_URL_LARAVEL}api/training/${user_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then((res) => setAlltrainings(res.data));
     }
   }, []);
@@ -45,12 +48,12 @@ function AllTraining() {
 
   return (
     <div className="allTraining">
-      <div class="searchBar w-4/5 sm:w-2/5 mx-auto my-5 shadow-md p-5 rounded-full flex gap-2">
+      <div className="searchBar w-4/5 sm:w-2/5 mx-auto my-5 shadow-md p-5 rounded-full flex gap-2">
         <label htmlFor="search">
-          <i class="fa-solid fa-magnifying-glass text-gray-300"></i>
+          <i className="fa-solid fa-magnifying-glass text-gray-300"></i>
         </label>
         <input
-          class="w-4/5 border-b border-gray-300 focus:outline-none text-gray-500"
+          className="w-4/5 border-b border-gray-300 focus:outline-none text-gray-500"
           type="text"
           name="search"
           onChange={(e) => setFilter(e.target.value)}

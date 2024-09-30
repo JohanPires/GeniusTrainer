@@ -23,7 +23,7 @@ function Register() {
 
     axios
       .post(
-        "http://127.0.0.1:8000/api/register",
+        `${process.env.REACT_APP_BACK_URL_LARAVEL}api/register`,
         {
           name: username,
           email: email,
@@ -38,7 +38,7 @@ function Register() {
       )
       .then((res) => {
         axios.post(
-          `http://127.0.0.1:8000/api/user/picture/${res.data.user.id}`,
+          `${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/picture/${res.data.user.id}`,
           formData
         );
 

@@ -13,7 +13,7 @@ function AdminDashboard() {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/api/user`, {
+      .get(`${process.env.REACT_APP_BACK_URL_LARAVEL}api/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
