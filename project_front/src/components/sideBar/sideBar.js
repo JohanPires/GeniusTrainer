@@ -96,7 +96,11 @@ function SideBar() {
         <div className="flex flex-col justify-between h-full">
           <div className="up">
             <div className="flex items-center justify-center py-5">
-              <img src="/img/test.png" alt="Logo" className="h-10 w-10 mr-3" />
+              <img
+                src="/img/Design_sans_titre__11_-removebg-preview.png"
+                alt="Logo"
+                className="h-10 w-10 mr-3"
+              />
               <h1 className="text-xl font-bold">GeniusTrainer</h1>
             </div>
             <div className="nav-container mt-8 pl-2">

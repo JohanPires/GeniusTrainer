@@ -7,10 +7,6 @@ use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\ExercicesController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
-
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/user/picture/{id}', [UserController::class, 'storePicture']);
