@@ -19,7 +19,6 @@ function ProfilBar() {
       })
       .then((res) => {
         setUserData(res.data);
-        localStorage.setItem("role", res.data.role);
       });
 
     const today = new Date();
@@ -36,7 +35,7 @@ function ProfilBar() {
               ? `${process.env.REACT_APP_BACK_URL_LARAVEL}storage/${userData.profile_photo_path}`
               : "/img/test.png"
           }
-          alt=""
+          alt="Profil utilisateur"
           className="rounded-full"
           width="40"
           height="40"

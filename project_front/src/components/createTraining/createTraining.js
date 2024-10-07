@@ -92,16 +92,14 @@ function CreateTraining() {
     ) {
       const doc = new jsPDF();
 
-      // Centrer le titre de la séance en haut
       doc.setFontSize(22);
       const pageWidth = doc.internal.pageSize.getWidth();
       const textWidth = doc.getTextWidth(trainingName);
       const xOffset = (pageWidth - textWidth) / 2;
       doc.text(trainingName, xOffset, 20);
 
-      // Ajouter le tableau des exercices avec autoTable
       doc.autoTable({
-        startY: 30, // Positionner le tableau en dessous du titre
+        startY: 30,
         head: [["Exercice", "Description", "Répétitions", "Séries"]],
         body: exercises
           .filter(
@@ -134,6 +132,7 @@ function CreateTraining() {
             placeholder="Nom de la séance"
             value={trainingName}
             onChange={(e) => setTrainingName(e.target.value)}
+            aria-label="Champ de séance"
           />
         </div>
 
@@ -151,6 +150,7 @@ function CreateTraining() {
                     onChange={(e) =>
                       updateExercise(index, "name", e.target.value)
                     }
+                    aria-label="Champ nom d'exercices"
                   />
 
                   <input
@@ -162,6 +162,7 @@ function CreateTraining() {
                     onChange={(e) =>
                       updateExercise(index, "repetitions", e.target.value)
                     }
+                    aria-label="Champ répétitions d'exercices"
                   />
                   <input
                     className="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
@@ -172,6 +173,7 @@ function CreateTraining() {
                     onChange={(e) =>
                       updateExercise(index, "sets", e.target.value)
                     }
+                    aria-label="Champ séries d'exercices"
                   />
                 </div>
                 <input
@@ -182,6 +184,7 @@ function CreateTraining() {
                   onChange={(e) =>
                     updateExercise(index, "advice", e.target.value)
                   }
+                  aria-label="Champ description d'exercices"
                 />
               </div>
             ))}

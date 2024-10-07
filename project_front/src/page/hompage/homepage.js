@@ -4,31 +4,7 @@ import "./homepage.css";
 
 function Homepage() {
   return (
-    // <div className="homepage">
-    //   <div className="header">
-    //     <div className="logo">
-    //       <img src="img/test.png" alt="" />
-    //       <h2>GeniusTrainer</h2>
-    //     </div>
-    //     <NavLink to="/login">CONNEXION</NavLink>
-    //   </div>
-    //   <div className="main">
-    //     <p>Pourquoi ?</p>
-    //     <h1>
-    //       Simplifier la création des séance pour vous concentrer sur la
-    //       performances
-    //     </h1>
-    //     <NavLink to="/register">INSCRIPTION</NavLink>
-    //     <img
-    //       src="img/pngtree-fitness-coach-original-hand-drawn-cartoon-png-image_2617677-removebg-preview (1).png"
-    //       alt=""
-    //       id="trainer"
-    //     />
-    //   </div>
-    //   <div className="footer"></div>
-    // </div>
     <div className="homepage h-screen flex flex-col">
-      {/* Header */}
       <div className="header h-[10vh] flex justify-between items-center px-4 md:px-10">
         <div className="logo flex items-center">
           <img src="img/test.png" alt="" className="h-20 w-20" />
@@ -44,7 +20,6 @@ function Homepage() {
           <i class="fa-regular fa-user w-4 h-4 md:hidden"></i>
         </NavLink>
       </div>
-      {/* Main Content */}
       <div className="main flex flex-col items-start sm:justify-center flex-1 pt-12 px-4 md:px-10 lg:flex-row lg:justify-between">
         <div className="flex flex-col gap-5 max-w-2xl z-50">
           <p className="text-xl">Pourquoi ?</p>
@@ -65,7 +40,6 @@ function Homepage() {
           className="block z-0"
         />
       </div>
-      {/* Footer */}
       <div className="flex flex-col w-full h-54 sm:h-48 bg-gray-800 text-[#e5e7eb] px-8 md:px-16 lg:px-32 xl:px-48 py-4">
         <div className="flex gap-6 flex-row justify-center items-center sm:justify-start ">
           <div className="flex flex-col  gap-2 justify-center sm:w-[35%] w-full">

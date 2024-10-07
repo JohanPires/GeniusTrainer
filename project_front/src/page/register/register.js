@@ -78,6 +78,7 @@ function Register() {
               name="username"
               placeholder="Nom"
               required
+              aria-label="Champ nom "
             />
           </div>
           <div class="flex items-center border-2 py-2 px-3 rounded-3xl mb-4">
@@ -87,6 +88,7 @@ function Register() {
               name="email"
               placeholder="Email"
               required
+              aria-label="Champ nom email"
             />
           </div>
           <div class="flex items-center border-2 py-2 px-3 rounded-3xl mb-4">
@@ -96,6 +98,7 @@ function Register() {
               name="password"
               required
               placeholder="Mot de passe"
+              aria-label="Champ mot de passe"
             />
           </div>
           <div class="flex items-center border-2 py-2 px-3 rounded-3xl mb-4">
@@ -110,7 +113,13 @@ function Register() {
                 Choisir une image
               </span>
             </label>
-            <input type="file" id="picture" class="hidden" name="picture" />
+            <input
+              type="file"
+              id="picture"
+              class="hidden"
+              name="picture"
+              aria-label="Champ image"
+            />
           </div>
           <button
             type="submit"

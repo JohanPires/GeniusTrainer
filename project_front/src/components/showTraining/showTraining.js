@@ -202,6 +202,7 @@ function ShowTraining({ training }) {
                   placeholder="Nom de la séance"
                   value={sessionName}
                   onChange={(e) => setSessionName(e.target.value)}
+                  aria-label="Champ nom séance"
                 />
               </div>
 
@@ -220,6 +221,7 @@ function ShowTraining({ training }) {
                             onChange={(e) =>
                               updateExercise(index, "name", e.target.value)
                             }
+                            aria-label="Champ nom d'exercices"
                           />
 
                           <input
@@ -235,6 +237,7 @@ function ShowTraining({ training }) {
                                 e.target.value
                               )
                             }
+                            aria-label="Champ répétitions d'exercices"
                           />
                           <input
                             className="border-b border-gray-300 focus:outline-none w-14 sm:w-24 sm:text-lg text-xs"
@@ -245,6 +248,7 @@ function ShowTraining({ training }) {
                             onChange={(e) =>
                               updateExercise(index, "sets", e.target.value)
                             }
+                            aria-label="Champ séries d'exercices"
                           />
                         </div>
                         <input
@@ -255,6 +259,7 @@ function ShowTraining({ training }) {
                           onChange={(e) =>
                             updateExercise(index, "description", e.target.value)
                           }
+                          aria-label="Champ description d'exercices"
                         />
                         <button onClick={() => deleteExercise(exercise.id)}>
                           Supprimer l'exercice

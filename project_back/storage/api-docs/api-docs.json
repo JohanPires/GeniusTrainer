@@ -1,0 +1,1020 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Gestion des Exercices",
+        "version": "1.0"
+    },
+    "paths": {
+        "/exercices": {
+            "get": {
+                "tags": [
+                    "Exercices"
+                ],
+                "summary": "Liste tous les exercices",
+                "operationId": "e558c39539d68edb9fdec37196f9aebf",
+                "responses": {
+                    "200": {
+                        "description": "Liste des exercices récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Exercice"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Exercices"
+                ],
+                "summary": "Créer un nouvel exercice",
+                "operationId": "c221ea923daadc2bbcdda1dd62d9a457",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Pompes"
+                                    },
+                                    "advice": {
+                                        "type": "string",
+                                        "example": "Gardez le dos droit"
+                                    },
+                                    "series": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "repetitions": {
+                                        "type": "integer",
+                                        "example": 12
+                                    },
+                                    "id_training": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Exercice créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Exercice"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Séance non trouvée",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Séance non trouvée"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/exercices/{id}": {
+            "get": {
+                "tags": [
+                    "Exercices"
+                ],
+                "summary": "Affiche les détails d'un exercice",
+                "operationId": "5941d5da0480f89b22368448de8b23b6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'exercice",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Détails de l'exercice récupérés",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Exercice"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Exercice non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Exercice non trouvé"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Exercices"
+                ],
+                "summary": "Mettre à jour un exercice",
+                "operationId": "c9b41cb1bb4fcbb1ab615203aa90e53f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'exercice",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Pompes"
+                                    },
+                                    "advice": {
+                                        "type": "string",
+                                        "example": "Gardez le dos droit"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Exercice mis à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Exercice"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Exercice non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Exercice non trouvé"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Exercices"
+                ],
+                "summary": "Supprimer un exercice",
+                "operationId": "dda7c2d1fdbfa0a4b9b93e4a64c86fdb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'exercice",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Exercice supprimé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Exercice supprimé avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Exercice non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Exercice non trouvé"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/trainings/user/{id}": {
+            "get": {
+                "tags": [
+                    "Trainings"
+                ],
+                "summary": "Récupère les séances d'un utilisateur avec leurs exercices",
+                "operationId": "1a76d9d96661f4e5c2c17ce9574e2058",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste des séances de l'utilisateur récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Training"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Aucune séance trouvée",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Aucune séance trouvée"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/trainings/admin": {
+            "get": {
+                "tags": [
+                    "Trainings"
+                ],
+                "summary": "Récupère toutes les séances (Admin)",
+                "operationId": "6eee762b7df81483573160955f58516d",
+                "responses": {
+                    "200": {
+                        "description": "Liste des séances récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Training"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Aucune séance trouvée",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Aucune séance trouvée"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/trainings/{id}": {
+            "get": {
+                "tags": [
+                    "Trainings"
+                ],
+                "summary": "Affiche les détails d'une séance avec ses exercices",
+                "operationId": "6da151952408cf2a17856fa48e92dfec",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la séance",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Détails de la séance récupérés avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Training"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Séance non trouvée",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Séance non trouvée"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Trainings"
+                ],
+                "summary": "Mettre à jour une séance",
+                "operationId": "7d38377b1b09fe961b76b98d481b7b29",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la séance",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Séance modifiée"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Séance mise à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Training"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Séance non trouvée",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Séance non trouvée"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Trainings"
+                ],
+                "summary": "Supprimer une séance",
+                "operationId": "680286f19ac3b9507144691464db73de",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la séance",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Séance supprimée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Séance supprimée avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Séance non trouvée",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Séance non trouvée"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/trainings": {
+            "post": {
+                "tags": [
+                    "Trainings"
+                ],
+                "summary": "Créer une nouvelle séance",
+                "operationId": "ff12987a61e7ecbd56811ad4ee47872b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Séance du matin"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Séance créée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Training"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Obtenir tous les utilisateurs",
+                "description": "Récupère la liste de tous les utilisateurs.",
+                "operationId": "6ddb1d542968f78f98a934ae855569bf",
+                "responses": {
+                    "200": {
+                        "description": "Liste des utilisateurs récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Obtenir un utilisateur spécifique",
+                "description": "Récupère les détails d'un utilisateur par son ID.",
+                "operationId": "6620b347ef3d3d7828ab93a3e064c0e1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur récupéré avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Modifier un utilisateur",
+                "description": "Met à jour les informations d'un utilisateur par son ID.",
+                "operationId": "19534687f146e916116334926644f683",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "new_password"
+                                    },
+                                    "picture": {
+                                        "type": "string",
+                                        "example": "profile_image.jpg"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur modifié avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "status": 200,
+                                    "content": "Utilisateur modifié avec succès"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Supprimer un utilisateur",
+                "description": "Supprime un utilisateur par son ID.",
+                "operationId": "c02d4b20c36fa979a0112ed40123e73a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur supprimé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "status": 200,
+                                    "content": "Utilisateur supprimé avec succès"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Enregistrer un utilisateur",
+                "description": "Crée un nouvel utilisateur.",
+                "operationId": "f1fde7f4a932e393f6042d1b92e65b0a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "example": "admin"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Utilisateur créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}/picture": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Ajouter ou mettre à jour la photo de profil d'un utilisateur",
+                "description": "Ajoute ou met à jour la photo de profil de l'utilisateur.",
+                "operationId": "72fae9cfefe658f55f4c85fb430de605",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "picture": {
+                                        "description": "Image de profil",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Photo de profil mise à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Connexion d'un utilisateur",
+                "description": "Authentifie un utilisateur et génère un jeton d'authentification.",
+                "operationId": "71d8adfdcf176b9e5ef0ade00011ce34",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Connexion réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "user": {
+                                        "id": 1,
+                                        "name": "John Doe",
+                                        "email": "john.doe@example.com"
+                                    },
+                                    "token": "generated_token"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Exercice": {
+                "title": "Exercice",
+                "description": "Un modèle représentant un exercice d'entraînement",
+                "properties": {
+                    "id": {
+                        "description": "ID de l'exercice",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nom": {
+                        "description": "Nom de l'exercice",
+                        "type": "string",
+                        "example": "Pompes"
+                    },
+                    "description": {
+                        "description": "Description de l'exercice",
+                        "type": "string",
+                        "example": "Exercice de renforcement musculaire"
+                    },
+                    "series": {
+                        "description": "Nombre de séries",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "repetitions": {
+                        "description": "Nombre de répétitions",
+                        "type": "integer",
+                        "example": 12
+                    },
+                    "training_id": {
+                        "description": "ID de la séance associée à cet exercice",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "description": "Date de création de l'exercice",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "Date de dernière mise à jour de l'exercice",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Training": {
+                "title": "Training",
+                "description": "Un modèle représentant une séance d'entraînement",
+                "properties": {
+                    "id": {
+                        "description": "ID de la séance",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nom": {
+                        "description": "Nom de la séance",
+                        "type": "string",
+                        "example": "Séance de musculation"
+                    },
+                    "user_id": {
+                        "description": "ID de l'utilisateur propriétaire de la séance",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "exercices": {
+                        "description": "Liste des exercices associés à la séance",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Exercice"
+                        }
+                    },
+                    "created_at": {
+                        "description": "Date de création de la séance",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "Date de dernière mise à jour de la séance",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "title": "User",
+                "description": "Modèle représentant un utilisateur",
+                "properties": {
+                    "id": {
+                        "description": "ID de l'utilisateur",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Nom de l'utilisateur",
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "email": {
+                        "description": "Adresse email de l'utilisateur",
+                        "type": "string",
+                        "format": "email",
+                        "example": "john.doe@example.com"
+                    },
+                    "role": {
+                        "description": "Rôle de l'utilisateur",
+                        "type": "string",
+                        "example": "admin"
+                    },
+                    "picture": {
+                        "description": "URL de la photo de profil de l'utilisateur",
+                        "type": "string",
+                        "example": "https://example.com/profile.jpg"
+                    },
+                    "email_verified_at": {
+                        "description": "Date de vérification de l'email",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "description": "Date de création de l'utilisateur",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "Date de dernière mise à jour de l'utilisateur",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "trainings": {
+                        "description": "Liste des séances d'entraînement associées à cet utilisateur",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Training"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Exercices",
+            "description": "Exercices"
+        },
+        {
+            "name": "Trainings",
+            "description": "Trainings"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
+        }
+    ]
+}

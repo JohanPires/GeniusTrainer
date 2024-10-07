@@ -34,12 +34,11 @@ function Conversation({ receiver }) {
         setFile(null); // Réinitialiser le fichier après l'envoi
       }
 
-      // Envoyer le message avec l'URL du fichier (si disponible)
       await addDoc(collection(db, "messages"), {
-        text: newMessage || null, // Le texte peut être vide si seul un fichier est envoyé
+        text: newMessage || null,
         from: user_id,
         to: receiver.id,
-        fileUrl: fileUrl || null, // Ajouter l'URL du fichier dans le message
+        fileUrl: fileUrl || null,
         timestamp: new Date(),
       });
 
@@ -139,9 +138,9 @@ function Conversation({ receiver }) {
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Tapez votre message..."
           className="flex-1 px-4 py-2 rounded-lg border focus:outline-none focus:ring"
+          aria-label="Champ de message"
         />
 
-        {/* Input pour le fichier */}
         <label className="cursor-pointer">
           <input type="file" className="hidden" onChange={handleFileChange} />
           <span className="text-gray-600 hover:text-blue-600 transition">

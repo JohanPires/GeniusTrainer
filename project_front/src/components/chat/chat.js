@@ -55,7 +55,7 @@ function Chat() {
             type="text"
             id="search"
             onChange={(e) => handleSearch(e.target.value)}
-            placeholder="Search for users..."
+            placeholder="Chercher un utilisateur..."
             autoComplete="off"
           />
         </div>

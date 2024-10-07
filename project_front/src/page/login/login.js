@@ -13,31 +13,25 @@ function Login() {
 
     const formData = new FormData(formRef.current);
 
-    const email = formData.get("email");
-    const password = formData.get("password");
-
     axios
-      .post(
-        `${process.env.REACT_APP_BACK_URL_LARAVEL}api/login`,
-        {
-          email: email,
-          password: password,
+      .post(`${process.env.REACT_APP_BACK_URL_LARAVEL}api/login`, formData, {
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      })
       .then((res) => {
-        const token = res.data.token;
-        const id = res.data.id;
-        localStorage.setItem("authToken", token);
-        localStorage.setItem("user_id", id);
-        navigate("/dashboard/create");
+        localStorage.setItem("authToken", res.data.token);
+        localStorage.setItem("user_id", res.data.id);
+        localStorage.setItem("role", res.data.user.role);
+
+        if (res.data.user.role === "athletes") {
+          navigate("/dashboard/profil");
+        } else {
+          navigate("/dashboard/create");
+        }
       })
       .catch((error) => {
-        if (error.response && error.response.status === 422) {
+        if (error.response) {
           setError(error.response.data.message);
         }
       });
