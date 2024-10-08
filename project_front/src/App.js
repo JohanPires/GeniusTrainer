@@ -9,6 +9,8 @@ import SavePage from "./page/savePage/savePage";
 import ProfilPage from "./page/profilPage/profilPage";
 import AdminPage from "./page/adminPage/adminPage";
 import ChatPage from "./page/chatPage/chatPage";
+import LegalMention from "./page/legalMention/legalMention";
+import Confidentiality from "./page/confidentiality/confidentiality";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/dashboard/profil" element={<ProfilPage />} />
         <Route path="/dashboard/admin" element={<AdminPage />} />
         <Route path="/dashboard/chat" element={<ChatPage />} />
+        <Route path="/legal" element={<LegalMention />} />
+        <Route path="/confidentiality" element={<Confidentiality />} />
       </Routes>
     </div>
   );

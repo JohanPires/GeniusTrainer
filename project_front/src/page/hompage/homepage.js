@@ -51,18 +51,18 @@ function Homepage() {
           <div className="flex flex-row w-[65%] sm:justify-end justify-center  gap-8 text-nowrap">
             <div className="grid grid-cols-1 gap-12">
               <div className="flex flex-col gap-2">
-                <div className="font-bold uppercase text-[#9ca3af] pb-3 text-sm md:text-base">
-                  Legal
-                </div>{" "}
-                <a href="#xxx" className="hover:underline text-sm md:text-base">
-                  Imprint
-                </a>
-                <a href="#xxx" className="hover:underline text-sm md:text-base">
-                  Privacy Policy
-                </a>
-                <a href="#xxx" className="hover:underline text-sm md:text-base">
-                  Terms of Use
-                </a>
+                <NavLink
+                  to="/legal"
+                  className="hover:underline text-sm md:text-base"
+                >
+                  Mentions Légales
+                </NavLink>
+                <NavLink
+                  to="/confidentiality"
+                  className="hover:underline text-sm md:text-base"
+                >
+                  Charte de confidentialité
+                </NavLink>
               </div>
             </div>
           </div>
