@@ -219,11 +219,12 @@ class UserController extends Controller
     public function storePicture(Request $request, $id) {
         $user = User::find($id);
 
+
         if ($request->hasFile('picture')) {
-            if ($user->profile_photo_path) {
-                Storage::disk('public')->delete($user->profile_photo_path);
-            }
-            $user->profile_photo_path = $request->file('picture')->store('images/profil', 'public');
+            // if ($user->profile_photo_path) {
+            //     Storage::disk('public')->delete($user->profile_photo_path);
+            // }
+            $user->profile_photo_path = $request->file('picture')->getClientOriginalName();
             $user->save();
         }
 

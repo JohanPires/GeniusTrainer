@@ -3,14 +3,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ModalRegister from "../../components/modal/modalRegister";
 import "./register.css";
-// import { getStorage } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 function Register() {
   const formRef = useRef(null);
   const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const [error, setError] = useState("");
+
+  const storage = getStorage();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,9 +22,11 @@ function Register() {
     const password = formData.get("password");
     const username = formData.get("username");
     const role = formData.get("role");
+    const picture = formData.get("picture");
 
-    axios
-      .post(
+    try {
+      // Envoi des informations de l'utilisateur à votre backend
+      const res = await axios.post(
         `${process.env.REACT_APP_BACK_URL_LARAVEL}api/register`,
         {
           name: username,
@@ -36,42 +39,32 @@ function Register() {
             "Content-Type": "application/json",
           },
         }
-      )
-      .then((res) => {
-        axios.post(
+      );
+
+      if (picture) {
+        const imageRef = ref(storage, `profile_images/${picture.name}`);
+        await uploadBytes(imageRef, picture);
+
+        await axios.post(
           `${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/picture/${res.data.user.id}`,
           formData
         );
+      }
 
-        setIsModalVisible(true);
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 422) {
-          setError("Ce mail est déjà utilisé");
-        }
-      });
+      setIsModalVisible(true);
+    } catch (error) {
+      if (error.response && error.response.status === 422) {
+        setError("Ce mail est déjà utilisé");
+      } else {
+        console.error("Erreur lors de l'inscription :", error);
+      }
+    }
   };
 
   const handleCloseModal = () => {
     setIsModalVisible(false);
     navigate("/login");
   };
-
-  // const storage = getStorage();
-  // const [file, setFile] = useState(null);
-  // const sendPicture = async () => {
-  //   try {
-  //     let fileUrl = null;
-  //     if (file) {
-  //       const storageRef = ref(storage, `files/${file.name}`);
-  //       await uploadBytes(storageRef, file); // Télécharger le fichier
-  //       fileUrl = await getDownloadURL(storageRef); // Obtenir l'URL du fichier
-  //       setFile(null); // Réinitialiser le fichier après l'envoi
-  //     }
-  //   } catch (e) {
-  //     console.error("Erreur lors de l'envoi de l'image : ", e);
-  //   }
-  // };
 
   return (
     <div class="h-screen md:flex">

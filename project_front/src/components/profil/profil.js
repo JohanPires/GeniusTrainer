@@ -3,6 +3,13 @@ import "./profil.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Modal from "../modal/modalDelete";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
+import { storage } from "../../lib/firebase";
 
 function Profil() {
   const [userData, setUserData] = useState([]);
@@ -21,7 +28,9 @@ function Profil() {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => setUserData(res.data));
+      .then((res) => {
+        setUserData(res.data);
+      });
   }, []);
 
   const handleSubmit = async (e) => {
@@ -32,9 +41,13 @@ function Profil() {
     const name = formData.get("name");
     const email = formData.get("email");
     const password = formData.get("password");
+    const picture = formData.get("picture");
 
-    axios
-      .put(
+    const token = localStorage.getItem("authToken");
+    const user_id = localStorage.getItem("user_id");
+
+    try {
+      const updateResponse = await axios.put(
         `${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/${user_id}`,
         {
           name: name,
@@ -46,23 +59,51 @@ function Profil() {
             Authorization: `Bearer ${token}`,
           },
         }
-      )
-      .then((res) => {
-        axios.post(
-          `${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/picture/${res.data.user.id}`,
-          formData
+      );
+
+      if (picture.name) {
+        const userResponse = await axios.get(
+          `${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/${user_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
-        setError("");
-        window.location.reload();
-      })
-      .then((res) => {
-        setUserData(res.data.user);
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 422) {
-          setError("Ce mail est déjà utilisé");
+
+        const oldImagePath = userResponse.data.profile_photo_path;
+
+        if (oldImagePath) {
+          const oldImageRef = ref(storage, `profile_images/${oldImagePath}`);
+          await deleteObject(oldImageRef);
         }
-      });
+        await axios.post(
+          `${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/picture/${updateResponse.data.user.id}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const imageRef = ref(storage, `profile_images/${picture.name}`);
+        await uploadBytes(imageRef, picture);
+      }
+
+      setUserData(updateResponse.data.user);
+      setError("");
+      window.location.reload();
+    } catch (error) {
+      if (error.response && error.response.status === 422) {
+        setError("Ce mail est déjà utilisé");
+      } else {
+        console.error(
+          "Erreur lors de la mise à jour de l'utilisateur :",
+          error
+        );
+      }
+    }
   };
 
   const openModel = () => {
@@ -77,7 +118,31 @@ function Profil() {
         },
       })
       .then(() => {
+        const deletePicture = async () => {
+          const userResponse = await axios.get(
+            `${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/${user_id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          const oldImagePath = userResponse.data.profile_photo_path;
+
+          if (oldImagePath) {
+            const oldImageRef = ref(storage, `profile_images/${oldImagePath}`);
+            await deleteObject(oldImageRef);
+          }
+        };
+        deletePicture();
+      })
+      .then(() => {
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("user_id");
+        localStorage.removeItem("role");
         navigate("/");
+        window.location.reload();
       });
   };
 

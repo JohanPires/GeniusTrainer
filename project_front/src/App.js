@@ -14,11 +14,17 @@ import Confidentiality from "./page/confidentiality/confidentiality";
 
 function App() {
   const [role, setRole] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
     setRole(storedRole);
+    setLoading(false);
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="App">
@@ -26,54 +32,67 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login setRole={setRole} />} />
+        <Route path="/legal" element={<LegalMention />} />
+        <Route path="/confidentiality" element={<Confidentiality />} />
 
         <Route
           path="/dashboard/create"
           element={
-            role === "admin" || role === "coach" ? (
-              <CreatePage />
+            role ? (
+              role === "admin" || role === "coach" ? (
+                <CreatePage />
+              ) : (
+                <Navigate to="/login" />
+              )
             ) : (
               <Navigate to="/login" />
             )
           }
         />
-        <Route
-          path="/dashboard/save"
-          element={
-            role === "admin" || role === "coach" ? (
-              <SavePage />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-        <Route
-          path="/dashboard/profil"
-          element={
-            role === "admin" || role === "coach" ? (
-              <ProfilPage />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
+
+        {role && (
+          <Route
+            path="/dashboard/save"
+            element={
+              role === "admin" || role === "coach" ? (
+                <SavePage />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+        )}
+
+        {role && (
+          <Route
+            path="/dashboard/profil"
+            element={
+              role === "admin" || role === "coach" ? (
+                <ProfilPage />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+        )}
+
         <Route
           path="/dashboard/admin"
-          element={role === "admin" ? <AdminPage /> : <Navigate to="/login" />}
+          element={
+            role && role === "admin" ? <AdminPage /> : <Navigate to="/login" />
+          }
         />
+
         <Route
           path="/dashboard/chat"
           element={
-            role === "admin" || role === "coach" ? (
+            role && (role === "admin" || role === "coach") ? (
               <ChatPage />
             ) : (
               <Navigate to="/login" />
             )
           }
         />
-
-        <Route path="/legal" element={<LegalMention />} />
-        <Route path="/confidentiality" element={<Confidentiality />} />
       </Routes>
     </div>
   );
