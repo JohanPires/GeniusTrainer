@@ -3,7 +3,7 @@ import "./login.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Login() {
+function Login({ setRole }) {
   const formRef = useRef(null);
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -29,6 +29,9 @@ function Login() {
         } else {
           navigate("/dashboard/create");
         }
+      })
+      .then(() => {
+        setRole(localStorage.getItem("role"));
       })
       .catch((error) => {
         if (error.response) {

@@ -16,15 +16,14 @@ function Conversation({ receiver }) {
   const [newMessage, setNewMessage] = useState("");
   const [file, setFile] = useState(null);
 
-  const storage = getStorage(); // Initialisation de Firebase Storage
+  const storage = getStorage();
 
   const user_id = localStorage.getItem("user_id");
 
   const messagesEndRef = useRef(null);
 
   const sendMessage = async () => {
-    if (newMessage.trim() === "" && !file) return; // Empêcher l'envoi de messages vides
-
+    if (newMessage.trim() === "" && !file) return;
     try {
       let fileUrl = null;
       if (file) {

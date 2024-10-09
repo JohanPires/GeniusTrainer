@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ModalRegister from "../../components/modal/modalRegister";
 import "./register.css";
+// import { getStorage } from "firebase/storage";
 
 function Register() {
   const formRef = useRef(null);
@@ -55,6 +56,22 @@ function Register() {
     setIsModalVisible(false);
     navigate("/login");
   };
+
+  // const storage = getStorage();
+  // const [file, setFile] = useState(null);
+  // const sendPicture = async () => {
+  //   try {
+  //     let fileUrl = null;
+  //     if (file) {
+  //       const storageRef = ref(storage, `files/${file.name}`);
+  //       await uploadBytes(storageRef, file); // Télécharger le fichier
+  //       fileUrl = await getDownloadURL(storageRef); // Obtenir l'URL du fichier
+  //       setFile(null); // Réinitialiser le fichier après l'envoi
+  //     }
+  //   } catch (e) {
+  //     console.error("Erreur lors de l'envoi de l'image : ", e);
+  //   }
+  // };
 
   return (
     <div class="h-screen md:flex">
