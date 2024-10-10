@@ -33,13 +33,6 @@ function ShowUser({ user }) {
           },
         }
       )
-      .then(() => {
-        axios.post(
-          `${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/picture/${user.id}`,
-          formData
-        );
-        setError("");
-      })
       .catch((error) => {
         if (error.response && error.response.status === 422) {
           setError("Ce mail est déjà utilisé");
@@ -99,20 +92,6 @@ function ShowUser({ user }) {
                 name="email"
                 required
                 defaultValue={user.email}
-              />
-            </div>
-
-            <div className="flex flex-col md:flex-row justify-between md:w-3/5 w-full">
-              <label
-                htmlFor="picture"
-                className="w-full md:w-1/3 mb-2 md:mb-0 text-sm md:text-base lg:text-lg"
-              >
-                Photo de Profil :
-              </label>
-              <input
-                className="border-b border-gray-300 outline-none text-gray-500 w-full md:w-2/3 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-gray-200 file:text-gray-600 hover:file:bg-gray-300"
-                type="file"
-                name="picture"
               />
             </div>
 

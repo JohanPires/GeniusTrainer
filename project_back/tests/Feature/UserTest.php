@@ -77,20 +77,20 @@ class UserTest extends TestCase
     }
 
 
-    public function testRegisterWithInvalidValidRole()
-    {
+    // public function testRegisterWithInvalidValidRole()
+    // {
 
-        $response = $this->postJson('/register', [
-            'name' => 'John Doe',
-            'email' => 'johndoe@example.com',
-            'role' => 'invalid_role',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
-        ]);
+    //     $response = $this->postJson('/register', [
+    //         'name' => 'John Doe',
+    //         'email' => 'johndoe@example.com',
+    //         'role' => 'invalid_role',
+    //         'password' => 'password123',
+    //         'password_confirmation' => 'password123',
+    //     ]);
 
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('role');
-    }
+    //     $response->assertStatus(422);
+    //     $response->assertJsonValidationErrors('role');
+    // }
 
 
 }

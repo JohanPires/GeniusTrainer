@@ -17,7 +17,7 @@ function Homepage() {
           className="bg-gray-800 text-white text-1xl border-2 border-gray-800 hover:bg-white hover:text-gray-800 transition duration-200 py-1 px-2 md:py-2 md:px-4 mr-2 md:mr-10"
         >
           <span className="hidden md:inline">CONNEXION</span>
-          <i class="fa-regular fa-user w-4 h-4 md:hidden"></i>
+          <i className="fa-regular fa-user w-4 h-4 md:hidden"></i>
         </NavLink>
       </div>
       <div className="main flex flex-col items-start sm:justify-center flex-1 pt-12 px-4 md:px-10 lg:flex-row lg:justify-between">

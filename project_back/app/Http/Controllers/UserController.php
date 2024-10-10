@@ -170,6 +170,10 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'role' => 'required|in:admin,coach,athletes',
             'password' => 'required|string|min:8',
+        ],
+        [
+            'email.unique' => 'Cette adresse e-mail est déjà utilisée',
+            'password.min' => 'Minimum 8 caractères dans le mot de passe'
         ]);
 
         $user = User::create([
@@ -178,10 +182,6 @@ class UserController extends Controller
             'role' => $request->role,
             'password' => Hash::make($request->password),
         ]);
-        if ($request->hasFile('picture')) {
-            $user->profile_photo_path = $request->file('picture')->store('images/profil', 'public');
-            $user->save();
-        }
 
         return response()->json(['message' => 'User created successfully', 'user' => $user]);
     }
@@ -221,9 +221,7 @@ class UserController extends Controller
 
 
         if ($request->hasFile('picture')) {
-            // if ($user->profile_photo_path) {
-            //     Storage::disk('public')->delete($user->profile_photo_path);
-            // }
+
             $user->profile_photo_path = $request->file('picture')->getClientOriginalName();
             $user->save();
         }

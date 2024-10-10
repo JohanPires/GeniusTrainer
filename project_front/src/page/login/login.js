@@ -41,29 +41,29 @@ function Login({ setRole }) {
   };
 
   return (
-    <div class="h-screen md:flex">
-      <div class="relative overflow-hidden md:flex w-1/2 bg-[url('/public/img/homme-dips.jpg')] bg-center bg-cover justify-around items-center hidden md:block"></div>
+    <div className="h-screen md:flex">
+      <div className="relative overflow-hidden md:flex w-1/2 bg-[url('/public/img/homme-dips.jpg')] bg-center bg-cover justify-around items-center hidden md:block"></div>
 
-      <div class="flex md:w-1/2 justify-center py-10 items-center bg-gray-800 h-full md:h-screen">
+      <div className="flex md:w-1/2 justify-center py-10 items-center bg-gray-800 h-full md:h-screen">
         <form
-          class="bg-white p-4 md:p-6 lg:p-8 xl:p-10 rounded-2xl"
+          className="bg-white p-4 md:p-6 lg:p-8 xl:p-10 rounded-2xl"
           ref={formRef}
           onSubmit={handleSubmit}
         >
-          <h1 class="text-gray-800 font-bold text-2xl mb-1">Connexion</h1>
+          <h1 className="text-gray-800 font-bold text-2xl mb-1">Connexion</h1>
 
-          <div class="flex items-center border-2 py-2 px-3 rounded-3xl mb-4">
+          <div className="flex items-center border-2 py-2 px-3 rounded-3xl mb-4">
             <input
-              class="pl-2 outline-none border-none"
+              className="pl-2 outline-none border-none"
               type="email"
               name="email"
               placeholder="Email"
               required
             />
           </div>
-          <div class="flex items-center border-2 py-2 px-3 rounded-3xl">
+          <div className="flex items-center border-2 py-2 px-3 rounded-3xl">
             <input
-              class="pl-2 outline-none border-none"
+              className="pl-2 outline-none border-none"
               type="password"
               name="password"
               required
@@ -72,12 +72,12 @@ function Login({ setRole }) {
           </div>
           <button
             type="submit"
-            class="block w-full bg-gray-800 mt-4 py-2 rounded-3xl text-white font-semibold mb-2"
+            className="block w-full bg-gray-800 mt-4 py-2 rounded-3xl text-white font-semibold mb-2"
           >
             Valider
           </button>
           <p id="error">{error}</p>
-          <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer">
+          <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer">
             <NavLink to="/register">Vous n'êtes pas encore inscrit ?</NavLink>
           </span>
         </form>

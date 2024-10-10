@@ -71,11 +71,14 @@ function Profil() {
           }
         );
 
-        const oldImagePath = userResponse.data.profile_photo_path;
+        const oldPicturePath = userResponse.data.profile_photo_path;
 
-        if (oldImagePath) {
-          const oldImageRef = ref(storage, `profile_images/${oldImagePath}`);
-          await deleteObject(oldImageRef);
+        if (oldPicturePath) {
+          const oldPictureRef = ref(
+            storage,
+            `profile_images/${oldPicturePath}`
+          );
+          await deleteObject(oldPictureRef);
         }
         await axios.post(
           `${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/picture/${updateResponse.data.user.id}`,
@@ -87,8 +90,8 @@ function Profil() {
           }
         );
 
-        const imageRef = ref(storage, `profile_images/${picture.name}`);
-        await uploadBytes(imageRef, picture);
+        const pictureRef = ref(storage, `profile_images/${picture.name}`);
+        await uploadBytes(pictureRef, picture);
       }
 
       setUserData(updateResponse.data.user);
@@ -128,11 +131,14 @@ function Profil() {
             }
           );
 
-          const oldImagePath = userResponse.data.profile_photo_path;
+          const oldPicturePath = userResponse.data.profile_photo_path;
 
-          if (oldImagePath) {
-            const oldImageRef = ref(storage, `profile_images/${oldImagePath}`);
-            await deleteObject(oldImageRef);
+          if (oldPicturePath) {
+            const oldPictureRef = ref(
+              storage,
+              `profile_images/${oldPicturePath}`
+            );
+            await deleteObject(oldPictureRef);
           }
         };
         deletePicture();
