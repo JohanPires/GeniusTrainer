@@ -39,7 +39,7 @@ function App() {
           path="/dashboard/create"
           element={
             role ? (
-              role === "admin" || role === "coach" ? (
+              role === "admin" || role === "coach" || role === "athletes" ? (
                 <CreatePage />
               ) : (
                 <Navigate to="/login" />
@@ -54,7 +54,7 @@ function App() {
           <Route
             path="/dashboard/save"
             element={
-              role === "admin" || role === "coach" ? (
+              role === "admin" || role === "coach" || role === "athletes" ? (
                 <SavePage />
               ) : (
                 <Navigate to="/login" />
@@ -67,7 +67,7 @@ function App() {
           <Route
             path="/dashboard/profil"
             element={
-              role === "admin" || role === "coach" ? (
+              role === "admin" || role === "coach" || role === "athletes" ? (
                 <ProfilPage />
               ) : (
                 <Navigate to="/login" />
@@ -86,7 +86,8 @@ function App() {
         <Route
           path="/dashboard/chat"
           element={
-            role && (role === "admin" || role === "coach") ? (
+            role &&
+            (role === "admin" || role === "coach" || role === "athletes") ? (
               <ChatPage />
             ) : (
               <Navigate to="/login" />

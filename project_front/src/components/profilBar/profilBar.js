@@ -4,7 +4,7 @@ import "./profilBar.css";
 import axios from "axios";
 
 import { getDownloadURL, ref } from "firebase/storage";
-import { storage } from "../../lib/firebase";
+import { storage } from "../../firebase/firebase";
 
 function ProfilBar() {
   const [userData, setUserData] = useState([]);

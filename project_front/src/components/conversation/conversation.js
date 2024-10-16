@@ -7,9 +7,10 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
-import { db } from "../../lib/firebase";
+import { db } from "../../firebase/firebase";
 import "./conversation.css";
 import { MdAttachFile } from "react-icons/md";
+import { FaPaperPlane } from "react-icons/fa";
 
 function Conversation({ receiver }) {
   const [messages, setMessages] = useState([]);
@@ -28,9 +29,9 @@ function Conversation({ receiver }) {
       let fileUrl = null;
       if (file) {
         const storageRef = ref(storage, `files/${file.name}`);
-        await uploadBytes(storageRef, file); // Télécharger le fichier
-        fileUrl = await getDownloadURL(storageRef); // Obtenir l'URL du fichier
-        setFile(null); // Réinitialiser le fichier après l'envoi
+        await uploadBytes(storageRef, file);
+        fileUrl = await getDownloadURL(storageRef);
+        setFile(null);
       }
 
       await addDoc(collection(db, "messages"), {
@@ -76,7 +77,6 @@ function Conversation({ receiver }) {
     return unsubscribe;
   };
 
-  // Gestion du fichier sélectionné
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
@@ -98,7 +98,6 @@ function Conversation({ receiver }) {
 
   return (
     <div className="conversation flex flex-col h-[90vh] max-w-lg mx-auto bg-white shadow-lg rounded-lg p-4">
-      {/* Messages */}
       <div className="messages flex-1 overflow-y-auto space-y-4 p-2">
         {messages.map((message) => (
           <div
@@ -129,7 +128,6 @@ function Conversation({ receiver }) {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Formulaire d'envoi de message */}
       <div className="send-message mt-4 flex items-center gap-2 border-t pt-2">
         <input
           type="text"
@@ -149,9 +147,12 @@ function Conversation({ receiver }) {
 
         <button
           onClick={sendMessage}
-          className="bg-gray-800 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition"
+          className="bg-gray-800 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 transition md:w-full w-6 flex justify-center align-center"
         >
-          Envoyer
+          <span className="hidden md:inline">Envoyer</span>
+          <span className="md:hidden">
+            <FaPaperPlane />
+          </span>
         </button>
       </div>
     </div>

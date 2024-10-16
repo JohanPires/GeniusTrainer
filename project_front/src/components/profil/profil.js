@@ -3,13 +3,8 @@ import "./profil.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Modal from "../modal/modalDelete";
-import {
-  deleteObject,
-  getDownloadURL,
-  ref,
-  uploadBytes,
-} from "firebase/storage";
-import { storage } from "../../lib/firebase";
+import { deleteObject, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../firebase/firebase";
 
 function Profil() {
   const [userData, setUserData] = useState([]);

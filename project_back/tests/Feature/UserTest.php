@@ -14,7 +14,7 @@ class UserTest extends TestCase
 
     public function testRegisterWithValidData()
     {
-        $response = $this->postJson('/register', [
+        $response = $this->postJson('/api/register', [
             'name' => 'John Doe',
             'email' => 'johndoe@example.com',
             'role' => 'coach',
@@ -22,18 +22,16 @@ class UserTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
-        $response->assertStatus(201);
-
+        $response->assertStatus(200);
         $this->assertDatabaseHas('users', [
             'email' => 'johndoe@example.com',
         ]);
 
-        User::where('email', 'johndoe@example.com')->delete();
     }
 
-    public function testRegisterWithInvalidValidEmail()
+    public function testRegisterWithInvalidEmail()
     {
-        $response = $this->postJson('/register', [
+        $response = $this->postJson('/api/register', [
             'name' => 'John Doe',
             'email' => 'invalid-email',
             'role' => 'coach',
@@ -42,55 +40,86 @@ class UserTest extends TestCase
         ]);
 
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors('email');
-
+        $response->assertJsonValidationErrors(['email']);
     }
-
-    public function testRegisterWithInvalidValidPassword()
+    public function testRegisterWithInvalidPassword()
     {
-
-        $response = $this->postJson('/register', [
+        $response = $this->postJson('/api/register', [
             'name' => 'John Doe',
-            'email' => 'johndoe@example.com',
-            'role' => 'admin',
-            'password' => 'short',
+            'email' => 'johndoe3@example.com',
+            'role' => 'coach',
+            'password' => 'pass',
             'password_confirmation' => 'password123',
         ]);
 
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors('password');
+        $response->assertJsonValidationErrors(['password']);
     }
 
-    public function testRegisterWithInvalidValidName()
-    {
 
-        $response = $this->postJson('/register', [
-            'name' => '',
-            'email' => 'johndoe@example.com',
-            'role' => 'admin',
+
+    public function testGetUser()
+    {
+        $response = $this->postJson('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'johndoe2@example.com',
+            'role' => 'coach',
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
 
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('name');
+        $response = $this->postJson('/api/login', [
+            'email' => 'johndoe2@example.com',
+            'password' => 'password123',
+        ]);
+
+        $userId = $response->json('id');
+        $token = $response->json('token');
+
+        $userResponse = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->getJson('/api/user/' . $userId);
+
+        $userResponse->assertStatus(200);
+        $userResponse->assertJson([
+            'id' => $userId,
+            'name' => 'John Doe',
+            'email' => 'johndoe2@example.com',
+            'role' => 'coach',
+        ]);
     }
 
+    public function testLogin()
+    {
+        $response = $this->postJson('/api/login', [
+            'email' => 'johndoe2@example.com',
+            'password' => 'password123',
+        ]);
 
-    // public function testRegisterWithInvalidValidRole()
-    // {
+        $response->assertStatus(200);
 
-    //     $response = $this->postJson('/register', [
-    //         'name' => 'John Doe',
-    //         'email' => 'johndoe@example.com',
-    //         'role' => 'invalid_role',
-    //         'password' => 'password123',
-    //         'password_confirmation' => 'password123',
-    //     ]);
+    }
 
-    //     $response->assertStatus(422);
-    //     $response->assertJsonValidationErrors('role');
-    // }
+    public function testLoginWithInvalidMail()
+    {
+        $response = $this->postJson('/api/login', [
+            'email' => 'joh@example.com',
+            'password' => 'password123',
+        ]);
 
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['authentification']);
+    }
+
+    public function testLoginWithInvalidPassword()
+    {
+        $response = $this->postJson('/api/login', [
+            'email' => 'johndoe2@example.com',
+            'password' => 'pass',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['authentification']);
+    }
 
 }

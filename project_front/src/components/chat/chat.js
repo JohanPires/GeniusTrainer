@@ -66,10 +66,14 @@ function Chat() {
           {results.map((user) => (
             <div
               key={user.id}
-              className="p-2 hover:bg-gray-200 cursor-pointer w-full"
+              className="p-2 hover:bg-gray-200 cursor-pointer w-full flex justify-between"
               onClick={() => handleConv(user)}
             >
-              {user.name}
+              <div className="flex gap-2">
+                <p>{user.name}</p>
+                {user.role === "admin" && <p>{user.role}</p>}
+              </div>
+              <button>Ajouter</button>
             </div>
           ))}
         </div>

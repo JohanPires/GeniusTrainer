@@ -240,7 +240,7 @@ class UserController extends Controller
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['Vos identifiants sont incorrect'],
+                'authentification' => ['Vos identifiants sont incorrect'],
             ]);
         }
         $token = $user->createToken('auth-token')->plainTextToken;
