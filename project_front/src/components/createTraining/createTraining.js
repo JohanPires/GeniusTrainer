@@ -3,6 +3,7 @@ import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import "./createTraining.css";
 import axios from "axios";
+import logo from "../../assets/logo_Pdf";
 
 function CreateTraining() {
   const [trainingName, setTrainingName] = useState("");
@@ -92,6 +93,8 @@ function CreateTraining() {
     ) {
       const doc = new jsPDF();
 
+      doc.addImage(logo, "PNG", 15, 10, 15, 15);
+
       doc.setFontSize(22);
       const pageWidth = doc.internal.pageSize.getWidth();
       const textWidth = doc.getTextWidth(trainingName);
@@ -111,6 +114,33 @@ function CreateTraining() {
             exercise.repetitions,
             exercise.sets,
           ]),
+        theme: "grid",
+        styles: {
+          fillColor: [31, 41, 55],
+          textColor: [0, 0, 0],
+          minCellHeight: 12,
+          valign: "middle",
+        },
+        headStyles: {
+          fillColor: [220, 38, 38],
+          textColor: [255, 255, 255],
+          halign: "center",
+          valign: "middle",
+        },
+        bodyStyles: {
+          fillColor: [31, 41, 55],
+          textColor: [255, 255, 255],
+          halign: "center",
+          valign: "middle",
+        },
+        alternateRowStyles: {
+          fillColor: [45, 55, 72],
+          halign: "center",
+          valign: "middle",
+        },
+        columnStyles: {
+          1: { halign: "left" },
+        },
       });
 
       doc.save(`${trainingName}.pdf`);

@@ -73,7 +73,6 @@ function Chat() {
                 <p>{user.name}</p>
                 {user.role === "admin" && <p>{user.role}</p>}
               </div>
-              <button>Ajouter</button>
             </div>
           ))}
         </div>

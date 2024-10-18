@@ -5,53 +5,65 @@ import axios from "axios";
 
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../firebase/firebase";
+import { useLocation } from "react-router-dom";
 
-function ProfilBar() {
+function ProfilBar({
+  userData: userDataProps,
+  currentDate: currentDateProps,
+  imageUrl: imageUrlProps,
+}) {
   const [userData, setUserData] = useState([]);
   const [currentDate, setCurrentDate] = useState("");
 
   const [imageUrl, setImageUrl] = useState("");
+  const location = useLocation();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const token = localStorage.getItem("authToken");
-      const user_id = localStorage.getItem("user_id");
+    if (location.pathname !== "/dashboard/profil") {
+      const fetchData = async () => {
+        const token = localStorage.getItem("authToken");
+        const user_id = localStorage.getItem("user_id");
 
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/${user_id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_BACK_URL_LARAVEL}api/user/${user_id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          setUserData(response.data);
+
+          const profilePhotoPath = response.data.profile_photo_path;
+
+          if (profilePhotoPath) {
+            const imageName = `profile_images/${profilePhotoPath}`;
+            const imageRef = ref(storage, imageName);
+
+            const url = await getDownloadURL(imageRef);
+            setImageUrl(url);
           }
-        );
-
-        setUserData(response.data);
-
-        const profilePhotoPath = response.data.profile_photo_path;
-
-        if (profilePhotoPath) {
-          const imageName = `profile_images/${profilePhotoPath}`;
-          const imageRef = ref(storage, imageName);
-
-          const url = await getDownloadURL(imageRef);
-          setImageUrl(url);
+        } catch (error) {
+          console.error(
+            "Erreur lors de la récupération de l'utilisateur :",
+            error
+          );
         }
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération de l'utilisateur :",
-          error
-        );
-      }
 
-      const today = new Date();
-      const formattedDate = today.toLocaleDateString();
-      setCurrentDate(formattedDate);
-    };
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString();
+        setCurrentDate(formattedDate);
+      };
 
-    fetchData();
-  }, []);
+      fetchData();
+    } else {
+      setUserData(userDataProps);
+      setCurrentDate(currentDateProps);
+      setImageUrl(imageUrlProps);
+    }
+  }, [userDataProps, currentDateProps, imageUrlProps]);
 
   return (
     <div className="flex justify-end lg:justify-between items-center p-5 shadow-md">

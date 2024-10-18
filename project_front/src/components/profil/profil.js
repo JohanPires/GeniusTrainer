@@ -6,7 +6,7 @@ import Modal from "../modal/modalDelete";
 import { deleteObject, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../firebase/firebase";
 
-function Profil() {
+function Profil({ fetchData }) {
   const [userData, setUserData] = useState([]);
   const formRef = useRef(null);
   const [error, setError] = useState("");
@@ -91,7 +91,8 @@ function Profil() {
 
       setUserData(updateResponse.data.user);
       setError("");
-      window.location.reload();
+      fetchData();
+      // window.location.reload();
     } catch (error) {
       if (error.response && error.response.status === 422) {
         setError("Ce mail est déjà utilisé");
